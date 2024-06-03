@@ -16,6 +16,7 @@ class App(object):
         self.fps = 60
         self.done = False
         self.keys = pygame.key.get_pressed()
+        self.widgets = []
         self.player = Player(self.screen_rect.center, 300)
 
     def event_loop(self):
@@ -27,6 +28,12 @@ class App(object):
                 self.done = True
             elif event.type in (pygame.KEYDOWN, pygame.KEYUP):
                 self.keys = pygame.key.get_pressed()
+            if event.type == pygame.VIDEORESIZE:
+                # There's some code to add back window content here.
+                settings.SCREEN_SIZE = (event.w, event.h)
+                self.screen = pygame.display.set_mode(settings.SCREEN_SIZE, pygame.RESIZABLE)
+                self.screen_rect = self.screen.get_rect()
+
 
     def update(self, dt):
         """
@@ -40,7 +47,13 @@ class App(object):
         """
         self.screen.fill(settings.BACKGROUND_COLOR)
         self.player.draw(self.screen)
+        for widget in self.widgets:
+            widget.draw(self.screen)
+
         pygame.display.update()
+
+    def addWidget(self, widget):
+        self.widgets.append(widget)
 
     def main_loop(self):
         """
