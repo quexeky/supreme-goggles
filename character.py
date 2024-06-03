@@ -16,13 +16,12 @@ class Character:
     def move(self, posDelta):
         self.__position += posDelta
 
-        if self.__position.x > settings.mapSize.x:
-            self.__position = settings.mapSize.x
+        if self.__position.x > settings.MAPSIZE.x:
+            self.__position = settings.MAPSIZE.x
         elif self.__position.x < 0:
             self.__position = 0
 
-        if self.__position.y > settings.mapSize.y:
-            self.__position = settings.mapSize.y
+        if self.__position.y > settings.MAPSIZE.y:
+            self.__position = settings.MAPSIZE.y
         elif self.__position.y < 0:
             self.__position = 0
-
