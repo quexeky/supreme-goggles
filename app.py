@@ -1,5 +1,6 @@
 import pygame
 
+import data
 import settings
 from player import Player
 
@@ -11,13 +12,13 @@ class App(object):
 
     def __init__(self):
         self.screen = pygame.display.get_surface()
-        self.screen_rect = self.screen.get_rect()
         self.clock = pygame.time.Clock()
         self.fps = 60
         self.done = False
-        self.keys = pygame.key.get_pressed()
-        self.widgets = []
-        self.player = Player(self.screen_rect.center, 300)
+        self.gameObjects = []
+        self.player = Player(data.screen_rect.center, 300)
+        data.screen_rect = self.screen.get_rect()
+        data.keys = pygame.key.get_pressed()
 
     def event_loop(self):
         """
@@ -27,19 +28,19 @@ class App(object):
             if event.type == pygame.QUIT:
                 self.done = True
             elif event.type in (pygame.KEYDOWN, pygame.KEYUP):
-                self.keys = pygame.key.get_pressed()
+                data.keys = pygame.key.get_pressed()
             if event.type == pygame.VIDEORESIZE:
                 # There's some code to add back window content here.
                 settings.SCREEN_SIZE = (event.w, event.h)
                 self.screen = pygame.display.set_mode(settings.SCREEN_SIZE, pygame.RESIZABLE)
-                self.screen_rect = self.screen.get_rect()
-
+                data.screen_rect = self.screen.get_rect()
 
     def update(self, dt):
         """
         Update must acccept and pass dt to all elements that need to update.
         """
-        self.player.update(self.keys, self.screen_rect, dt)
+        for gameObject in self.gameObjects:
+            gameObject.update(dt)
 
     def render(self):
         """
@@ -47,13 +48,13 @@ class App(object):
         """
         self.screen.fill(settings.BACKGROUND_COLOR)
         self.player.draw(self.screen)
-        for widget in self.widgets:
-            widget.draw(self.screen)
+        for gameObject in self.gameObjects:
+            gameObject.draw(self.screen)
 
         pygame.display.update()
 
-    def addWidget(self, widget):
-        self.widgets.append(widget)
+    def addGameObject(self, gameObject):
+        self.gameObjects.append(gameObject)
 
     def main_loop(self):
         """
