@@ -1,11 +1,10 @@
-import asyncio
 import socket
 import threading
 
 
 def handle_client(client):
     request = None
-    while request != b'quit' and request != b'quit\n':
+    while request != b"quit" and request != b"quit\n":
         request = client.recv(1024)
         response = request.upper()
         print(request)
@@ -14,7 +13,7 @@ def handle_client(client):
 
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.bind(('localhost', 8000))
+server.bind(("localhost", 8000))
 server.listen(8)
 
 try:

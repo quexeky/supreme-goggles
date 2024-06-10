@@ -6,6 +6,7 @@ from settings import DIRECT_DICT
 
 class Player(object):
     """This class will represent our user controlled character."""
+
     SIZE = (100, 100)
 
     def __init__(self, pos, speed):

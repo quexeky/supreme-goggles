@@ -13,10 +13,11 @@ DIRECT_DICT = {
     pygame.K_a: (-1, 0),
     pygame.K_d: (1, 0),
     pygame.K_w: (0, -1),
-    pygame.K_s: (0, 1)
+    pygame.K_s: (0, 1),
 }
 PLAYER_COLOUR = "tomato"
 PLAYER_SPEED = 300
+
 
 def playerImage(w, h):
     s = pygame.Surface((w, h), pygame.SRCALPHA)

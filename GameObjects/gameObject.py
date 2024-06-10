@@ -15,4 +15,7 @@ class GameObject(object):
 
     def draw(self, screen):
         if self.enabled:
-            screen.blit(self.img, (self.pos.x - camera_position.x, self.pos.y - camera_position.y))
+            screen.blit(
+                self.img,
+                (self.pos.x - camera_position.x, self.pos.y - camera_position.y),
+            )

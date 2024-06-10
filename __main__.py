@@ -6,6 +6,7 @@ import pygame
 import data
 import settings
 from GameObjects.displayPlayer import DisplayPlayer
+
 # import networking.server
 from GameObjects.widgets.button import Button
 from GameObjects.player import Player
@@ -15,7 +16,7 @@ def main():
     """
     Initialize; create an App; and start the main loop.
     """
-    os.environ['SDL_VIDEO_CENTERED'] = '1'
+    os.environ["SDL_VIDEO_CENTERED"] = "1"
     pygame.init()
     pygame.display.set_caption(settings.CAPTION)
     pygame.display.set_mode(settings.SCREEN_SIZE, pygame.RESIZABLE)
@@ -32,5 +33,5 @@ def main():
     sys.exit()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -2,7 +2,6 @@ import pygame
 
 import data
 import settings
-from player import Player
 
 
 class App(object):
@@ -31,7 +30,9 @@ class App(object):
             if event.type == pygame.VIDEORESIZE:
                 # There's some code to add back window content here.
                 settings.SCREEN_SIZE = (event.w, event.h)
-                self.screen = pygame.display.set_mode(settings.SCREEN_SIZE, pygame.RESIZABLE)
+                self.screen = pygame.display.set_mode(
+                    settings.SCREEN_SIZE, pygame.RESIZABLE
+                )
                 data.screen_rect = self.screen.get_rect()
 
     def update(self, dt):
