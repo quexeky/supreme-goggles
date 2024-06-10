@@ -1,3 +1,6 @@
+import threading
+from time import sleep
+
 import app
 import os
 import sys
@@ -28,9 +31,19 @@ def main():
     game.addGameObject(Button(500, 50, 100, 100, text="Hello, Jess", textSize=15))
     game.addGameObject(Player(300, 300, 50, 50, 1))
     game.addGameObject(DisplayPlayer(300, 300, 50, 50, 1))
+    threading.Thread(target=background, args=(game, )).start()
     game.main_loop()
     pygame.quit()
     sys.exit()
+
+
+def background(game):
+    game.addGameObject(Button(100, 500, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
+    game.addGameObject(Button(100, 600, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
+    game.addGameObject(Button(100, 700, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
+    game.addGameObject(Button(100, 800, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
+    game.addGameObject(Button(100, 900, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
+    game.addGameObject(Button(100, 1000, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
 
 
 if __name__ == "__main__":
