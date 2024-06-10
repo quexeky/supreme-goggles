@@ -16,7 +16,6 @@ class App(object):
         self.fps = 60
         self.done = False
         self.gameObjects = []
-        self.player = Player(data.screen_rect.center, 300)
         data.screen_rect = self.screen.get_rect()
         data.keys = pygame.key.get_pressed()
 
@@ -47,7 +46,6 @@ class App(object):
         Render all needed elements and update the display.
         """
         self.screen.fill(settings.BACKGROUND_COLOR)
-        self.player.draw(self.screen)
         for gameObject in self.gameObjects:
             gameObject.draw(self.screen)
 

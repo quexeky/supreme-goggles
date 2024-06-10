@@ -16,8 +16,8 @@ class Player(gameObject.GameObject):
                 self.pos.x += settings.DIRECT_DICT[key][0] * settings.PLAYER_SPEED * dt
                 self.pos.y += settings.DIRECT_DICT[key][1] * settings.PLAYER_SPEED * dt
         (self.rect.x, self.rect.y) = (self.pos.x, self.pos.y)
-        (data.camera_position.x, data.camera_position.y) = (self.x - settings.SCREEN_SIZE.x / 2,
-                                                            self.y - settings.SCREEN_SIZE.y / 2)
+        (data.camera_position.x, data.camera_position.y) = (self.pos.x - settings.SCREEN_SIZE.x / 2,
+                                                            self.pos.y - settings.SCREEN_SIZE.y / 2)
         self.clamp(data.screen_rect)
 
     def clamp(self, screen_rect):

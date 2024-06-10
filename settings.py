@@ -19,6 +19,7 @@ PLAYER_COLOUR = "tomato"
 PLAYER_SPEED = 300
 
 def playerImage(w, h):
-    s = pygame.Surface((w, h))
+    s = pygame.Surface((w, h), pygame.SRCALPHA)
     pygame.draw.circle(s, PLAYER_COLOUR, s.get_rect().center, w / 2)
+    s = s.convert_alpha()
     return s
