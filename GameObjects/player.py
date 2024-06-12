@@ -5,8 +5,8 @@ from GameObjects import gameObject
 
 
 class Player(gameObject.GameObject):
-    def __init__(self, x, y, w, h, scale):
-        super().__init__(x, y, settings.playerImage(w, h), scale)
+    def __init__(self, x, y, w, h, scale, z=1):
+        super().__init__(x, y, settings.playerImage(w, h), scale, True, z)
         self.rect = self.img.get_rect(center=(x, y))
 
     def update(self, dt):
@@ -20,6 +20,7 @@ class Player(gameObject.GameObject):
             self.pos.y - settings.SCREEN_SIZE.y / 2,
         )
         self.clamp(data.screen_rect)
+        data.player_self.update_pos(self.pos)
 
     def clamp(self, screen_rect):
         """

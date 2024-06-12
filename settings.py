@@ -18,6 +18,11 @@ DIRECT_DICT = {
 PLAYER_COLOUR = "tomato"
 PLAYER_SPEED = 300
 
+host = '127.0.0.1'
+PORT = 8090
+
+playerDimensions = (50, 50)
+
 
 def playerImage(w, h):
     s = pygame.Surface((w, h), pygame.SRCALPHA)

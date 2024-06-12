@@ -6,14 +6,22 @@ port = 8090
 host = "127.0.0.1"
 
 clients = []
+client_counter = 0
 
 
 def handle_client(player):
+    global client_counter
+
+    player.send(client_counter.to_bytes(16, byteorder='little'))
+    client_counter += 1
+
     while True:
         global clients
         data = player.recv(1024)
         if not data:
             print("Client disconnected")
+            clients.remove(player)
+            player.close()
             break
         print(data)
         for client in clients:

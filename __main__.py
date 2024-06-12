@@ -13,6 +13,7 @@ from GameObjects.displayPlayer import DisplayPlayer
 # import networking.server
 from GameObjects.widgets.button import Button
 from GameObjects.player import Player
+from networking.client import server_connect
 
 
 def main():
@@ -29,9 +30,8 @@ def main():
     game = app.App()
     game.addGameObject(Button(100, 100, 150, 150, text="Hi hooman", textSize=30))
     game.addGameObject(Button(500, 50, 100, 100, text="Hello, Jess", textSize=15))
-    game.addGameObject(Player(300, 300, 50, 50, 1))
-    game.addGameObject(DisplayPlayer(300, 300, 50, 50, 1))
-    threading.Thread(target=background, args=(game, )).start()
+    game.addGameObject(Player(300, 300, 50, 50, 1, 10))
+    threading.Thread(target=server_connect, args=(game, )).start()
     game.main_loop()
     pygame.quit()
     sys.exit()
@@ -40,9 +40,9 @@ def main():
 def background(game):
     game.addGameObject(Button(100, 500, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
     game.addGameObject(Button(100, 600, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
-    game.addGameObject(Button(100, 700, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
+    game.addGameObject(Button(100, 750, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
     game.addGameObject(Button(100, 800, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
-    game.addGameObject(Button(100, 900, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
+    game.addGameObject(Button(100, 850, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
     game.addGameObject(Button(100, 1000, 150, 150, text="WEEEEEEEEEEEEEEEEEEE", textSize=30))
 
 

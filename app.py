@@ -47,13 +47,17 @@ class App(object):
         Render all needed elements and update the display.
         """
         self.screen.fill(settings.BACKGROUND_COLOR)
+        to_draw = []
         for gameObject in self.gameObjects:
-            gameObject.draw(self.screen)
+            to_draw.append(gameObject.draw())
 
+        self.screen.blits(to_draw)
         pygame.display.update()
 
     def addGameObject(self, gameObject):
         self.gameObjects.append(gameObject)
+
+        self.gameObjects.sort(key=lambda x: x.z)
 
     def main_loop(self):
         """

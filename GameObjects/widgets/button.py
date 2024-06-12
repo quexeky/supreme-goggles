@@ -6,7 +6,7 @@ from GameObjects.widgets import widget
 
 class Button(widget.Widget):
     def __init__(
-        self, x, y, w, h, text="", textSize=20, textColour="black", colour="white"
+        self, x, y, w, h, text="", textSize=20, textColour="black", colour="white", z=0
     ):
         self.x = x
         self.y = y
@@ -23,4 +23,4 @@ class Button(widget.Widget):
             # s.blit(text, textRect)
             s.blit(text, textRect)
 
-        super().__init__(x, y, w, h, s, text, textSize, textColour, colour)
+        super().__init__(x, y, w, h, s, text, textSize, textColour, colour, z)
