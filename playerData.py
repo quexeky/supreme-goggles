@@ -12,5 +12,5 @@ class PlayerData(object):
         self.visible = visible
 
     def update_pos(self, pos):
-        self.x = pos.x
-        self.y = pos.y
+        self.x = int(pos.x)
+        self.y = int(pos.y)

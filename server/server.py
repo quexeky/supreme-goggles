@@ -17,16 +17,20 @@ def handle_client(player):
 
     while True:
         global clients
-        data = player.recv(1024)
+        data = player.recv(96)
         if not data:
             print("Client disconnected")
             clients.remove(player)
             player.close()
-            break
-        print(data)
-        for client in clients:
-            if client != player:
-                client.send(data)
+        threading.Thread(target=send_received_data, args=(data, player)).start()
+
+
+def send_received_data(data, player):
+    data = (data.decode().partition('}')[0] + '}').encode()
+    print(data)
+    for client in clients:
+        if client != player:
+            client.send(data)
 
 
 try:

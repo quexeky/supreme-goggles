@@ -4,6 +4,8 @@ import socket
 import threading
 from time import sleep
 
+import jsonpickle
+
 import data
 import playerData
 import settings
@@ -25,7 +27,10 @@ def manage_input(conn, game):
         recv_data = conn.recv(1024)
         if not recv_data:
             break
-        player = pickle.loads(recv_data)
+
+        tmp_data = json.loads(recv_data.decode())
+        print(tmp_data)
+        player = PlayerData(**tmp_data)
         print((player.x, player.y))
         if player.user_id not in data.others:
             data.others.update({player.user_id: player})
@@ -36,5 +41,6 @@ def manage_input(conn, game):
 
 def manage_output(conn):
     while True:
-        sleep(0.05)
-        conn.sendall(pickle.dumps(data.player_self))
+        sleep(0.01)
+        conn.send(jsonpickle.dumps(data.player_self, unpicklable=False).encode())
+
