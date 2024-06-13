@@ -28,19 +28,30 @@ def manage_input(conn, game):
         if not recv_data:
             break
 
-        tmp_data = json.loads(recv_data.decode())
-        print(tmp_data)
-        player = PlayerData(**tmp_data)
-        print((player.x, player.y))
-        if player.user_id not in data.others:
-            data.others.update({player.user_id: player})
-            game.addGameObject(DisplayPlayer(player.user_id))
-        else:
-            data.others.update({player.user_id: player})
+        try:
+            length = int.from_bytes(recv_data[:1], 'little')
+            d = recv_data[1:length]
+            print(d)
+
+            block = json.loads(d)
+
+            player = PlayerData(**block)
+            print((player.x, player.y))
+
+            if player.user_id not in data.others:
+                data.others.update({player.user_id: player})
+                game.addGameObject(DisplayPlayer(player.user_id))
+            else:
+                data.others.update({player.user_id: player})
+
+        except json.JSONDecodeError:
+            print("Invalid client data recieved")
 
 
 def manage_output(conn):
     while True:
         sleep(0.01)
-        conn.send(jsonpickle.dumps(data.player_self, unpicklable=False).encode())
+        position_data = jsonpickle.dumps(data.player_self, unpicklable=False).encode()
+        block = (len(position_data) + 1).to_bytes(1, byteorder='little') + position_data
+        conn.send(block)
 
