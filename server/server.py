@@ -17,7 +17,7 @@ def handle_client(player):
 
     while True:
         global clients
-        data = player.recv(256)
+        data = player.recv(17)
         if not data:
             print("Client disconnected")
             clients.remove(player)
@@ -26,10 +26,6 @@ def handle_client(player):
 
 
 def send_received_data(data, player):
-    # data = data[:data.index(b"}") + 1]
-    # Jankiest code I've ever written:
-    # data = (data.decode().partition('}')[0] + '}').encode()
-
     print(data)
     for client in clients:
         if client != player:

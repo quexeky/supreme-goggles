@@ -25,6 +25,7 @@ class App(object):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.done = True
+
             elif event.type in (pygame.KEYDOWN, pygame.KEYUP):
                 data.keys = pygame.key.get_pressed()
             if event.type == pygame.VIDEORESIZE:
@@ -71,3 +72,4 @@ class App(object):
             self.update(dt)
             self.render()
             dt = self.clock.tick(self.fps) / 1000.0
+
