@@ -58,4 +58,4 @@ def manage_output(conn, game):
             position_data = data.player_self.serialise()
             # block = (len(position_data) + 1).to_bytes(1, byteorder='little') + position_data
             conn.send(position_data)
-            sleep(0.01)
+            #sleep(0.01)
