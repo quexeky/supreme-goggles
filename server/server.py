@@ -12,7 +12,7 @@ client_counter = 0
 def handle_client(player):
     global client_counter
 
-    player.send(client_counter.to_bytes(16, byteorder='little'))
+    player.send(client_counter.to_bytes(16, byteorder="little"))
     client_counter += 1
 
     while True:
@@ -57,4 +57,4 @@ while True:
     (conn, addr) = s.accept()
     clients.append(conn)
     print("Connected by", addr)
-    threading.Thread(target=handle_client, args=(conn, )).start()
+    threading.Thread(target=handle_client, args=(conn,)).start()

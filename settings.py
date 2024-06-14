@@ -18,7 +18,7 @@ DIRECT_DICT = {
 PLAYER_COLOUR = "tomato"
 PLAYER_SPEED = 300
 
-host = '127.0.0.1'
+host = "127.0.0.1"
 PORT = 8090
 
 playerDimensions = (50, 50)

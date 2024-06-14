@@ -16,5 +16,7 @@ class GameObject(object):
 
     def draw(self):
         if self.enabled:
-            return self.img, (self.pos.x - camera_position.x, self.pos.y - camera_position.y)
-
+            return self.img, (
+                self.pos.x - camera_position.x,
+                self.pos.y - camera_position.y,
+            )

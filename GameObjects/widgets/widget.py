@@ -15,7 +15,7 @@ class Widget(GameObject):
         textColour="black",
         colour="white",
         enabled=True,
-        z=0
+        z=0,
     ):
         super().__init__(x, y, img, scale, enabled, z)
         self.w = w

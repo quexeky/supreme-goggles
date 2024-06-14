@@ -72,4 +72,3 @@ class App(object):
             self.update(dt)
             self.render()
             dt = self.clock.tick(self.fps) / 1000.0
-

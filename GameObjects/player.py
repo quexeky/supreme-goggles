@@ -1,4 +1,3 @@
-
 import data
 import settings
 from GameObjects import gameObject

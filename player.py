@@ -1,6 +1,5 @@
 import pygame
 
-import data
 import settings
 from settings import DIRECT_DICT
 
@@ -36,7 +35,6 @@ class Player(object):
                 self.true_pos[1] += DIRECT_DICT[key][1] * self.speed * dt
         self.rect.center = self.true_pos
 
-
         self.clamp(screen_rect)
 
     def clamp(self, screen_rect):
@@ -47,7 +45,6 @@ class Player(object):
         if not screen_rect.contains(self.rect):
             self.rect.clamp_ip(screen_rect)
             self.true_pos = list(self.rect.center)
-
 
     def draw(self, surface):
         """
