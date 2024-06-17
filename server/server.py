@@ -3,11 +3,11 @@ import sys
 import threading
 
 port = 8090
-host = "127.0.0.1"
+host = "0.0.0.0"
 
-clients = []
+clients = list()
 client_counter = 0
-
+"""
 
 def handle_client(player):
     global client_counter
@@ -17,7 +17,7 @@ def handle_client(player):
 
     while True:
         global clients
-        data = player.recv(17)
+        data = player.recvfrom(17)
 
         if not data:
             print("Client disconnected")
@@ -31,13 +31,41 @@ def send_received_data(data, player):
     print(data)
     for client in clients:
         if client != player:
-            client.send(data)
+            client.sendto(data)
 
 
 try:
-    s = socket.socket()
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+    print("Socket successfully created")
+except socket.error as msg:
+    print("Socket creation failed")
+    print(msg)
+    sys.exit()
+
+try:
+    print(host, port)
+    s.bind((host, port))
+    print("Socket bind successful")
+except socket.error as msg:
+    print("Bind failed")
+    print(msg)
+    sys.exit()
+
+s.listen(3)
+
+while True:
+    print("Waiting for connection")
+    (payload, addr) = s.recvfrom(17)
+    print(payload)
+    clients.append(addr)
+    print("Connected by", addr)
+    threading.Thread(target=handle_client, args=(addr,)).start()
+"""
+
+try:
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     print("Socket successfully created")
 except socket.error as msg:
     print("Socket creation failed")
@@ -52,11 +80,17 @@ except socket.error as msg:
     print(msg)
     sys.exit()
 
-s.listen(3)
-
 while True:
     print("Waiting for connection")
-    (conn, addr) = s.accept()
-    clients.append(conn)
-    print("Connected by", addr)
-    threading.Thread(target=handle_client, args=(conn,)).start()
+    payload, addr = s.recvfrom(17)
+    if not clients.__contains__(addr):
+        if payload == b"Create Client!1!!":
+            s.sendto(int.to_bytes(client_counter, 17, "little"), addr)
+            clients.append(addr)
+    else:
+        print(payload)
+        for client in clients:
+            if client != addr:
+                s.sendto(payload, client)
+
+
