@@ -1,6 +1,5 @@
 import socket
 import sys
-import threading
 
 port = 8090
 host = "0.0.0.0"
@@ -92,5 +91,3 @@ while True:
         for client in clients:
             if client != addr:
                 s.sendto(payload, client)
-
-

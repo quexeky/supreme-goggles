@@ -17,14 +17,14 @@ class PlayerData(object):
         uid = int(self.user_id).to_bytes(1, byteorder="little", signed=False)
         x = int(self.x).to_bytes(8, byteorder="little", signed=True)
         y = int(self.y).to_bytes(8, byteorder="little", signed=True)
-        #print(len(uid + x + y))
+        # print(len(uid + x + y))
 
         return uid + x + y
 
 
 def deserialise_player_data(serialised):
-    #print(serialised)
-    uid = int.from_bytes((serialised[0], ), byteorder="little", signed=False)
+    # print(serialised)
+    uid = int.from_bytes((serialised[0],), byteorder="little", signed=False)
     x = int.from_bytes(serialised[1:8], byteorder="little", signed=True)
     y = int.from_bytes(serialised[9:16], byteorder="little", signed=True)
 

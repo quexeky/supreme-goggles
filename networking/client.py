@@ -1,7 +1,6 @@
 import json
 import socket
 import threading
-from time import sleep
 
 import data
 import playerData
@@ -25,7 +24,7 @@ def manage_input(conn, game):
     while True:
         if game.done:
             break
-        #conn.sendto(b"Create Client!1!!", (settings.host, settings.PORT))
+        # conn.sendto(b"Create Client!1!!", (settings.host, settings.PORT))
         recv_data = conn.recvfrom(17)
         if not recv_data:
             break
@@ -59,4 +58,4 @@ def manage_output(conn, game):
             position_data = data.player_self.serialise()
             # block = (len(position_data) + 1).to_bytes(1, byteorder='little') + position_data
             conn.sendto(position_data, (settings.host, settings.PORT))
-            #sleep(0.01)
+            # sleep(0.01)
