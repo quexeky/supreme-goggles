@@ -80,7 +80,7 @@ except socket.error as msg:
     sys.exit()
 
 while True:
-    print("Waiting for connection")
+    # print("Waiting for connection")
     payload, addr = s.recvfrom(17)
     if not clients.__contains__(addr):
         if payload == b"Create Client!1!!":

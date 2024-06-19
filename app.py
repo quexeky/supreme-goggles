@@ -10,6 +10,7 @@ class App(object):
     """
 
     def __init__(self):
+        self.events = None
         self.screen = pygame.display.get_surface()
         self.clock = pygame.time.Clock()
         self.fps = 60
@@ -22,7 +23,8 @@ class App(object):
         """
         Basic event loop.
         """
-        for event in pygame.event.get():
+        self.events = pygame.event.get()
+        for event in self.events:
             if event.type == pygame.QUIT:
                 self.done = True
 
@@ -41,7 +43,7 @@ class App(object):
         Update must acccept and pass dt to all elements that need to update.
         """
         for gameObject in self.gameObjects:
-            gameObject.update(dt)
+            gameObject.update(dt, self.events)
 
     def render(self):
         """

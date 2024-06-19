@@ -17,7 +17,7 @@ class DisplayPlayer(gameObject.GameObject):
 
         self.uid = uid
 
-    def update(self, dt):
+    def update(self, dt, events):
         other = data.others.get(self.uid)
         self.pos.x = other.x
         self.pos.y = other.y

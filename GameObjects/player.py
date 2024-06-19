@@ -8,7 +8,7 @@ class Player(gameObject.GameObject):
         super().__init__(x, y, settings.playerImage(w, h), scale, True, z)
         self.rect = self.img.get_rect(center=(x, y))
 
-    def update(self, dt):
+    def update(self, dt, events):
         for key in settings.DIRECT_DICT:
             if data.keys[key]:
                 self.pos.x += settings.DIRECT_DICT[key][0] * settings.PLAYER_SPEED * dt

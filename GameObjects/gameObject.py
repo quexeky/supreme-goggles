@@ -11,7 +11,7 @@ class GameObject(object):
         self.enabled = enabled
         self.z = z
 
-    def update(self, dt):
+    def update(self, dt, events):
         return
 
     def draw(self):
