@@ -32,7 +32,6 @@ class SpriteCharacter(gameObject.GameObject):
             if event.type == pygame.KEYDOWN:
                 match event.key:
                     case pygame.K_q:
-                        print("Pressed Q")
                         self.moving_sprites.remove(self.Head.style)
                         self.moving_sprites.add(self.Head.selectStyle(-1))
                     case pygame.K_e:
@@ -58,4 +57,3 @@ class SpriteCharacter(gameObject.GameObject):
         pygame.transform.flip(screen, False, True)
 
         self.img = screen
-

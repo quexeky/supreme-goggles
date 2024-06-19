@@ -42,7 +42,7 @@ class BodySprite(pygame.sprite.Sprite):
         return sprite
 
     def parseSprites(self, name, rows, columns, length, width, height, padding=0):
-        self.spriteSheet = pygame.image.load(f'{self.spritesDir}{name}.png')
+        self.spriteSheet = pygame.image.load(f"{self.spritesDir}{name}.png")
 
         count = 0
         for y in range(columns):
@@ -51,12 +51,21 @@ class BodySprite(pygame.sprite.Sprite):
                 if count > length:
                     break
                 self.sprites.append(
-                    self.getSprite(self.spriteSheet, x * width + x * padding, y * height + y * padding, width, height))
+                    self.getSprite(
+                        self.spriteSheet,
+                        x * width + x * padding,
+                        y * height + y * padding,
+                        width,
+                        height,
+                    )
+                )
         # print(count)
 
     def update(self, speed):
         self.currentSprite += speed
-        #print(speed)
+        # print(speed)
         if int(self.currentSprite) >= len(self.activeAnim):
             self.currentSprite = 0
-        self.image = self.activeAnim[int(self.currentSprite)]  # rounds to nearest int so speed works
+        self.image = self.activeAnim[
+            int(self.currentSprite)
+        ]  # rounds to nearest int so speed works
