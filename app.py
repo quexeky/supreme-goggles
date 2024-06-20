@@ -32,7 +32,7 @@ class App(object):
                 data.keys = pygame.key.get_pressed()
             if event.type == pygame.VIDEORESIZE:
                 # There's some code to add back window content here.
-                settings.SCREEN_SIZE = (event.w, event.h)
+                settings.SCREEN_SIZE = pygame.Vector2(event.w, event.h)
                 self.screen = pygame.display.set_mode(
                     settings.SCREEN_SIZE, pygame.RESIZABLE
                 )

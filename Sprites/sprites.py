@@ -1,5 +1,6 @@
 import pygame
 
+import settings
 from GameObjects import gameObject
 from Sprites.bodySprite import BodySprite
 from Sprites.bodyType import BodyType
@@ -20,8 +21,10 @@ class SpriteCharacter(gameObject.GameObject):
 
         self.moving_sprites = moving_sprites
 
-        s = pygame.Surface((500, 500), pygame.SRCALPHA)
-        super().__init__(x, y, s, 1, z)
+        self.scale = 10
+
+        s = pygame.Surface((settings.spriteWidth, settings.spriteHeight), pygame.SRCALPHA)
+        super().__init__(x, y, s, 10, z)
 
     def update(self, dt, events):
         for event in events:
@@ -50,10 +53,13 @@ class SpriteCharacter(gameObject.GameObject):
                         self.moving_sprites.remove(self.Legs.style)
                         self.moving_sprites.add(self.Legs.selectStyle(1))
 
-        screen = pygame.Surface((500, 500), pygame.SRCALPHA)
+        screen = pygame.Surface((settings.spriteWidth, settings.spriteHeight), pygame.SRCALPHA)
         self.moving_sprites.draw(screen)
-        self.moving_sprites.update(0.25)
+        self.moving_sprites.update(0.1)
         # print(self.moving_sprites.sprites())
+
         pygame.transform.flip(screen, False, True)
 
-        self.img = screen
+        self.img = pygame.transform.scale(screen, (settings.spriteWidth * self.scale, settings.spriteHeight * self.scale))
+
+        print(self.img.get_rect().h)

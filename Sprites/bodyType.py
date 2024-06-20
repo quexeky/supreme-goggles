@@ -9,7 +9,8 @@ class BodyType:
 
     def selectStyle(self, num):
         self.styleIndex += num
-        self.style = self.styles[self.styleIndex % len(self.styles)]
+        self.styleIndex %= len(self.styles)
+        self.style = self.styles[self.styleIndex]
         self.changeAnim(self.animation)
         return self.style
 

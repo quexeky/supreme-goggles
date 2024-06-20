@@ -2,7 +2,7 @@ import pygame
 
 MAPSIZE = pygame.math.Vector2(0, 0)
 CAPTION = "Supreme Goggles"
-SCREEN_SIZE = pygame.Vector2(500, 500)
+SCREEN_SIZE = pygame.math.Vector2(500, 500)
 TRANSPARENT = (0, 0, 0, 0)
 BACKGROUND_COLOR = pygame.Color("darkslategrey")
 DIRECT_DICT = {
@@ -21,7 +21,10 @@ PLAYER_SPEED = 300
 host = "0.0.0.0"
 PORT = 8090
 
-playerDimensions = (50, 50)
+playerDimensions = (12, 18)
+
+spriteWidth = 12
+spriteHeight = 18
 
 
 def playerImage(w, h):

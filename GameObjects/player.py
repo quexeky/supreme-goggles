@@ -1,3 +1,5 @@
+import pygame.transform
+
 import data
 import settings
 from GameObjects import gameObject
@@ -5,7 +7,8 @@ from GameObjects import gameObject
 
 class Player(gameObject.GameObject):
     def __init__(self, x, y, w, h, scale, z=1):
-        super().__init__(x, y, settings.playerImage(w, h), scale, True, z)
+        s = pygame.transform.scale(settings.playerImage(w, h), (w * scale, w * scale))
+        super().__init__(x, y, s, scale, True, z)
         self.rect = self.img.get_rect(center=(x, y))
 
     def update(self, dt, events):

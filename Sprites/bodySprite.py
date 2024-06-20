@@ -1,6 +1,12 @@
 import pygame
 
 
+def getSprite(spriteSheet, x, y, w, h):
+    sprite = pygame.Surface((w, h), pygame.SRCALPHA)
+    sprite.blit(spriteSheet, (0, 0), (x, y, w, h))
+    return sprite
+
+
 class BodySprite(pygame.sprite.Sprite):
     def __init__(self, name):
         super().__init__()
@@ -34,12 +40,7 @@ class BodySprite(pygame.sprite.Sprite):
 
         self.image = self.sprites[self.currentSprite]
         self.rect = self.image.get_rect()
-        self.rect.topleft = [250, 250]
-
-    def getSprite(self, spriteSheet, x, y, w, h):
-        sprite = pygame.Surface((w, h), pygame.SRCALPHA)
-        sprite.blit(spriteSheet, (0, 0), (x, y, w, h))
-        return sprite
+        self.rect.topleft = [0, 0]
 
     def parseSprites(self, name, rows, columns, length, width, height, padding=0):
         self.spriteSheet = pygame.image.load(f"{self.spritesDir}{name}.png")
@@ -51,7 +52,7 @@ class BodySprite(pygame.sprite.Sprite):
                 if count > length:
                     break
                 self.sprites.append(
-                    self.getSprite(
+                    getSprite(
                         self.spriteSheet,
                         x * width + x * padding,
                         y * height + y * padding,
