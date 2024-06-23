@@ -11,6 +11,7 @@ from GameObjects.player import Player
 
 # import networking.server
 from GameObjects.widgets.button import Button
+from GameObjects.widgets.fps_counter import FPS
 from Sprites.sprites import SpriteCharacter
 from networking.client import server_connect
 
@@ -30,7 +31,7 @@ def main():
     game.addGameObject(Button(100, 100, 150, 150, text="Hi hooman", textSize=30))
     game.addGameObject(Button(500, 50, 100, 100, text="Hello, Jess", textSize=15))
     game.addGameObject(Player(300, 300, 50, 50, 3, 10))
-    game.addGameObject(SpriteCharacter(250, 250, 50))
+    game.addGameObject(FPS(0, 0, z=100))
     threading.Thread(target=server_connect, args=(game,), daemon=True).start()
     game.main_loop()
     pygame.quit()

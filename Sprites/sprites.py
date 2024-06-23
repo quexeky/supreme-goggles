@@ -1,17 +1,22 @@
 import pygame
 
+import data
 import settings
 from GameObjects import gameObject
+from Sprites.animLookup import table
 from Sprites.bodySprite import BodySprite
 from Sprites.bodyType import BodyType
 
 
-class SpriteCharacter(gameObject.GameObject):
-    def __init__(self, x, y, z):
+class SpriteCharacter(object):
+    def __init__(self, scale, direction):
+        self.img = pygame.Surface((0, 0))
         self.num = 0
-        self.Head = BodyType([BodySprite("Head"), BodySprite("Head2")])
-        self.Torso = BodyType([BodySprite("Torso"), BodySprite("Torso2")])
-        self.Legs = BodyType([BodySprite("Legs"), BodySprite("Legs2")])
+        self.Head = BodyType([BodySprite("Head"), BodySprite("Head2")], animation=direction)
+        self.Torso = BodyType([BodySprite("Torso"), BodySprite("Torso2")], animation=direction)
+        self.Legs = BodyType([BodySprite("Legs"), BodySprite("Legs2")], animation=direction)
+        self.movement_composition = (0, 0)
+        self.direction = direction
 
         # Creating the sprites and groups
         moving_sprites = pygame.sprite.Group()
@@ -21,45 +26,64 @@ class SpriteCharacter(gameObject.GameObject):
 
         self.moving_sprites = moving_sprites
 
-        self.scale = 10
+        self.scale = scale
 
-        s = pygame.Surface((settings.spriteWidth, settings.spriteHeight), pygame.SRCALPHA)
-        super().__init__(x, y, s, 10, z)
-
-    def update(self, dt, events):
+    def update(self, events):
         for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                self.Head.changeAnim("N_walk")
-                self.Torso.changeAnim("N_walk")
-                self.Legs.changeAnim("N_walk")
             if event.type == pygame.KEYDOWN:
                 match event.key:
-                    case pygame.K_q:
+                    case pygame.K_i:
                         self.moving_sprites.remove(self.Head.style)
-                        self.moving_sprites.add(self.Head.selectStyle(-1))
-                    case pygame.K_e:
+                        self.moving_sprites.add(self.Head.changeStyle(-1))
+                    case pygame.K_p:
                         self.moving_sprites.remove(self.Head.style)
-                        self.moving_sprites.add(self.Head.selectStyle(1))
-                    case pygame.K_a:
+                        self.moving_sprites.add(self.Head.changeStyle(1))
+                    case pygame.K_j:
                         self.moving_sprites.remove(self.Torso.style)
-                        self.moving_sprites.add(self.Torso.selectStyle(-1))
-                    case pygame.K_d:
+                        self.moving_sprites.add(self.Torso.changeStyle(-1))
+                    case pygame.K_l:
                         self.moving_sprites.remove(self.Torso.style)
-                        self.moving_sprites.add(self.Torso.selectStyle(1))
-                    case pygame.K_z:
+                        self.moving_sprites.add(self.Torso.changeStyle(1))
+                    case pygame.K_n:
                         self.moving_sprites.remove(self.Legs.style)
-                        self.moving_sprites.add(self.Legs.selectStyle(-1))
-                    case pygame.K_c:
+                        self.moving_sprites.add(self.Legs.changeStyle(-1))
+                    case pygame.K_COMMA:
                         self.moving_sprites.remove(self.Legs.style)
-                        self.moving_sprites.add(self.Legs.selectStyle(1))
+                        self.moving_sprites.add(self.Legs.changeStyle(1))
+                self.update_walk()
+                self.changeFullAnimation(self.direction)
+            if event.type == pygame.KEYUP:
+                self.update_walk()
+                self.changeFullAnimation(self.direction)
+
+    def tick(self, dt):
+        self.moving_sprites.update(dt * settings.ANIMATION_RATE)
 
         screen = pygame.Surface((settings.spriteWidth, settings.spriteHeight), pygame.SRCALPHA)
         self.moving_sprites.draw(screen)
-        self.moving_sprites.update(0.1)
         # print(self.moving_sprites.sprites())
-
+        # print("Reassigned self.img")
         pygame.transform.flip(screen, False, True)
+        self.img = pygame.transform.scale(screen,
+                                          (settings.spriteWidth * self.scale, settings.spriteHeight * self.scale))
 
-        self.img = pygame.transform.scale(screen, (settings.spriteWidth * self.scale, settings.spriteHeight * self.scale))
+    def changeFullAnimation(self, direction):
+        self.Head.changeAnim(direction)
+        self.Torso.changeAnim(direction)
+        self.Legs.changeAnim(direction)
+        # print("Changed to go", direction)
 
-        print(self.img.get_rect().h)
+    def update_walk(self):
+        x = 0
+        y = 0
+        for key in settings.DIRECT_DICT:
+            if data.keys[key]:
+                x += settings.DIRECT_DICT[key][0]
+                y += settings.DIRECT_DICT[key][1]
+        self.movement_composition = (x, y)
+
+        print(self.movement_composition)
+
+        moving = self.movement_composition != (0, 0)
+
+        self.direction = (x, y, moving)

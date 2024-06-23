@@ -24,3 +24,9 @@ class Widget(GameObject):
         self.textSize = textSize
         self.textColour = textColour
         self.colour = colour
+
+"""
+    def draw(self):
+        if self.enabled:
+            return self.img, (self.pos.x, self.pos.y)
+"""

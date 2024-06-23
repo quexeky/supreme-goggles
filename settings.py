@@ -8,8 +8,8 @@ BACKGROUND_COLOR = pygame.Color("darkslategrey")
 DIRECT_DICT = {
     pygame.K_LEFT: (-1, 0),
     pygame.K_RIGHT: (1, 0),
-    pygame.K_UP: (0, -1),
-    pygame.K_DOWN: (0, 1),
+    pygame.K_UP: (0, 1),
+    pygame.K_DOWN: (0, -1),
     pygame.K_a: (-1, 0),
     pygame.K_d: (1, 0),
     pygame.K_w: (0, -1),
@@ -17,6 +17,7 @@ DIRECT_DICT = {
 }
 PLAYER_COLOUR = "tomato"
 PLAYER_SPEED = 300
+ANIMATION_RATE = 4
 
 host = "0.0.0.0"
 PORT = 8090

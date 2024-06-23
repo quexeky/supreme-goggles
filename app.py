@@ -12,8 +12,8 @@ class App(object):
     def __init__(self):
         self.events = None
         self.screen = pygame.display.get_surface()
-        self.clock = pygame.time.Clock()
-        self.fps = 60
+        data.clock = pygame.time.Clock()
+        self.fps = 10000
         self.done = False
         self.gameObjects = []
         data.screen_rect = self.screen.get_rect()
@@ -68,9 +68,10 @@ class App(object):
         get the time delta between frames.
         """
         dt = 0
-        self.clock.tick(self.fps)
+        data.clock.tick(self.fps)
         while not self.done:
             self.event_loop()
             self.update(dt)
             self.render()
-            dt = self.clock.tick(self.fps) / 1000.0
+            dt = data.clock.tick(self.fps) / 1000.0
+            # print(self.clock.get_fps())
