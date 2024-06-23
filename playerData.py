@@ -9,11 +9,14 @@ class PlayerData(object):
         self.direction = direction
         self.styleIndexes = styleIndexes
 
-    def update_pos(self, pos, direction):
+    def update_pos(self, pos, direction, styleIndexes):
         if not (self.x == int(pos.x) and self.y == int(pos.y)):
             self.x = int(pos.x)
             self.y = int(pos.y)
-            self.direction = direction = direction
+            self.direction = direction
+            data.player_pos_updated = True
+        if not (self.styleIndexes == styleIndexes):
+            self.styleIndexes = styleIndexes
             data.player_pos_updated = True
 
     def serialise(self):
@@ -33,7 +36,7 @@ class PlayerData(object):
 
 
 def deserialise_player_data(serialised):
-    # print(serialised)
+    print(len(serialised))
     uid = int.from_bytes((serialised[0],), byteorder="little", signed=False)
     x = int.from_bytes(serialised[1:8], byteorder="little", signed=True)
     y = int.from_bytes(serialised[9:16], byteorder="little", signed=True)

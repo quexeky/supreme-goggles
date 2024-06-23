@@ -12,11 +12,12 @@ class SpriteCharacter(object):
     def __init__(self, scale, direction):
         self.img = pygame.Surface((0, 0))
         self.num = 0
-        self.Head = BodyType([BodySprite("Head"), BodySprite("Head2")], animation=direction)
-        self.Torso = BodyType([BodySprite("Torso"), BodySprite("Torso2")], animation=direction)
-        self.Legs = BodyType([BodySprite("Legs"), BodySprite("Legs2")], animation=direction)
+        self.Head = BodyType([BodySprite("head1"), BodySprite("head2"), BodySprite("head3"), BodySprite("head4"), BodySprite("head5")], animation=direction)
+        self.Torso = BodyType([BodySprite("torso1"), BodySprite("torso2"), BodySprite("torso3"), BodySprite("torso4"), BodySprite("torso5")], animation=direction)
+        self.Legs = BodyType([BodySprite("legs1"), BodySprite("legs2"), BodySprite("legs3"), BodySprite("legs4"), BodySprite("legs5")], animation=direction)
         self.movement_composition = (0, 0)
         self.direction = direction
+        self.styleIndexes = (0, 0, 0)
 
         # Creating the sprites and groups
         moving_sprites = pygame.sprite.Group()
@@ -50,6 +51,7 @@ class SpriteCharacter(object):
                     case pygame.K_COMMA:
                         self.moving_sprites.remove(self.Legs.style)
                         self.moving_sprites.add(self.Legs.changeStyle(1))
+                self.styleIndexes = (self.Head.styleIndex, self.Torso.styleIndex, self.Legs.styleIndex)
                 self.update_walk()
                 self.changeFullAnimation(self.direction)
             if event.type == pygame.KEYUP:
@@ -68,6 +70,7 @@ class SpriteCharacter(object):
                                           (settings.spriteWidth * self.scale, settings.spriteHeight * self.scale))
 
     def changeFullAnimation(self, direction):
+        print(direction)
         self.Head.changeAnim(direction)
         self.Torso.changeAnim(direction)
         self.Legs.changeAnim(direction)
@@ -82,7 +85,7 @@ class SpriteCharacter(object):
                 y += settings.DIRECT_DICT[key][1]
         self.movement_composition = (x, y)
 
-        print(self.movement_composition)
+        print(self.movement_composition != (0, 0))
 
         moving = self.movement_composition != (0, 0)
 

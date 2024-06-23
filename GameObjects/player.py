@@ -27,7 +27,7 @@ class Player(gameObject.GameObject):
             self.rect.center[1] - settings.SCREEN_SIZE.y / 2,
         )
         self.clamp(data.screen_rect)
-        data.player_self.update_pos(self.pos, self.direction)
+        data.player_self.update_pos(self.pos, self.direction, self.sprite.styleIndexes)
         # print(self.direction)
         self.sprite.update(events)
         self.sprite.tick(dt)

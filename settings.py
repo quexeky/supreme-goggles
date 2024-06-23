@@ -22,10 +22,10 @@ ANIMATION_RATE = 4
 host = "0.0.0.0"
 PORT = 8090
 
-playerDimensions = (12, 18)
+playerDimensions = (18, 24)
 
-spriteWidth = 12
-spriteHeight = 18
+spriteWidth = 18
+spriteHeight = 24
 
 
 def playerImage(w, h):
