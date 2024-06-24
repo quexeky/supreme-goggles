@@ -33,32 +33,37 @@ def manage_input(conn, game):
         if not recv_data:
             break
 
-        try:
-            # length = int.from_bytes(recv_data[:1], 'little')
-            # d = recv_data[1:length]
-            # print(d)
+        run_client(game, recv_data)
+        threading.Thread(target=run_client, args=(game, recv_data), daemon=True).start()
 
-            # block = json.loads(d)
 
-            player = playerData.deserialise_player_data(recv_data[0])
-            # print((player.x, player.y))
-            # print("Received UID:", player.user_id)
+def run_client(game, recv_data):
+    try:
+        # length = int.from_bytes(recv_data[:1], 'little')
+        # d = recv_data[1:length]
+        # print(d)
 
-            # print(data.others)
-            if data.others.get(str(player.user_id)):
-                data.others[str(player.user_id)] = player
+        # block = json.loads(d)
 
-                print("Updated old user", str(player.user_id))
-            else:
-                data.others[str(player.user_id)] = player
-                game.addGameObject(DisplayPlayer(player.user_id, player.direction, player.styleIndexes))
+        player = playerData.deserialise_player_data(recv_data[0])
+        # print((player.x, player.y))
+        # print("Received UID:", player.user_id)
 
-                print("Created new user", str(player.user_id))
+        # print(data.others)
+        if data.others.get(str(player.user_id)):
+            data.others[str(player.user_id)] = player
 
-            # print("Users: ", len(data.others))
+            print("Updated old user", str(player.user_id))
+        else:
+            data.others[str(player.user_id)] = player
+            game.addGameObject(DisplayPlayer(player.user_id, player.direction, player.styleIndexes))
 
-        except json.JSONDecodeError:
-            print("Invalid client data recieved")
+            print("Created new user", str(player.user_id))
+
+        # print("Users: ", len(data.others))
+
+    except json.JSONDecodeError:
+        print("Invalid client data recieved")
 
 
 def manage_output(conn, game):

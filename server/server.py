@@ -48,6 +48,6 @@ except socket.error as msg:
 while True:
     # print("Waiting for connection")
     payload, addr = s.recvfrom(22)
-    threading.Thread(target=manage_client, args=(payload, addr)).start()
+    threading.Thread(target=manage_client, args=(payload, addr), daemon=True).start()
     sleep(0.01)
 
