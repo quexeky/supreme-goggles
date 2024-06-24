@@ -4,8 +4,8 @@ from Sprites.sprites import SpriteCharacter
 
 
 class DisplayPlayer(gameObject.GameObject):
-    def __init__(self, uid, direction, styleIndexes):
-        self.styleIndexes = styleIndexes
+    def __init__(self, uid, direction):
+        self.styleIndexes = (0, 0, 0)
         self.sprite = SpriteCharacter(3, direction)                         # The entire player assembly
         super().__init__(
             0,
@@ -25,6 +25,7 @@ class DisplayPlayer(gameObject.GameObject):
         if other.direction != self.sprite.direction:
             self.sprite.changeFullAnimation(other.direction)
             self.sprite.direction = other.direction
+            print(other.direction)
         self.sprite.tick(dt)
 
         self.img = self.sprite.img
@@ -40,11 +41,16 @@ class DisplayPlayer(gameObject.GameObject):
             self.styleIndexes = otherStyleIndexes
             print("Changed Head")
         if otherStyleIndexes[1] != self.styleIndexes[1]:
-            self.sprite.replace_animation(self.sprite.Torso, otherStyleIndexes[1])
+            self.sprite.moving_sprites.remove(self.sprite.Torso.style)
+            self.sprite.moving_sprites.add(
+                self.sprite.Torso.setStyle(otherStyleIndexes[1])
+            )
             self.styleIndexes = otherStyleIndexes
             print("Changed Torso")
         if otherStyleIndexes[2] != self.styleIndexes[2]:
-            return
-            #self.sprite.replace_animation(self.sprite.Legs, otherStyleIndexes[2])
-            #self.styleIndexes = otherStyleIndexes
-            #print("Changed Legs")
+            self.sprite.moving_sprites.remove(self.sprite.Legs.style)
+            self.sprite.moving_sprites.add(
+                self.sprite.Legs.setStyle(otherStyleIndexes[2])
+            )
+            self.styleIndexes = otherStyleIndexes
+            print("Changed Legs")

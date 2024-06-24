@@ -17,15 +17,31 @@ class Player(gameObject.GameObject):
         # print(self.rect.center)
 
     def update(self, dt, events):
+        self.updatePlayerPos(dt)
+
+        self.sprite.update(events)
+
+        self.sprite.tick(dt)
+        # self.direction = self.sprite.direction
+
+        self.img = self.sprite.img
+        self.rect = self.img.get_rect(center=(self.pos.x, self.pos.y))
+        # print(self.sprite.img)
+
+    def updatePlayerPos(self, dt):
         posUpdateX = 0
         posUpdateY = 0
         for key in settings.DIRECT_DICT:
             if data.keys[key]:
                 posUpdateX += settings.DIRECT_DICT[key][0]
                 posUpdateY += settings.DIRECT_DICT[key][1]
+        self.movement_composition = (posUpdateX, posUpdateY)
+        moving = self.movement_composition != (0, 0)
+        self.direction = (posUpdateX, posUpdateY, moving)
+        self.sprite.direction = self.direction
         if abs(posUpdateX) == 1 and abs(posUpdateY) == 1:
+            # Normalise value. Multiply by ~sqrt(2) because Pythagoras
             (posUpdateX, posUpdateY) = (posUpdateX * 1.412 / 2, posUpdateY * 1.412 / 2)
-
         self.pos += pygame.Vector2(
             (
                 posUpdateX * settings.PLAYER_SPEED * dt,
@@ -33,24 +49,15 @@ class Player(gameObject.GameObject):
             )
         )
         # print(posUpdateX, posUpdateY)
-
         (self.rect.x, self.rect.y) = (self.pos.x, self.pos.y)
         (data.camera_position.x, data.camera_position.y) = (
             self.rect.center[0] - settings.SCREEN_SIZE.x / 2,
             self.rect.center[1] - settings.SCREEN_SIZE.y / 2,
         )
         self.clamp(data.screen_rect)
+        #print(self.direction)
         data.player_self.update_pos(self.pos, self.direction, self.sprite.styleIndexes)
         # print(self.direction)
-
-        self.sprite.update(events)
-
-        self.sprite.tick(dt)
-        self.direction = self.sprite.direction
-
-        self.img = self.sprite.img
-        self.rect = self.img.get_rect(center=(self.pos.x, self.pos.y))
-        # print(self.sprite.img)
 
     def clamp(self, screen_rect):
         if not screen_rect.contains(self.rect):

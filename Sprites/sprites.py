@@ -56,13 +56,11 @@ class SpriteCharacter(object):
                     self.Torso.styleIndex,
                     self.Legs.styleIndex,
                 )
-                self.updateWalk()
                 self.changeFullAnimation(self.direction)
                 self.Head.changeAnim(self.direction)
                 self.Torso.changeAnim(self.direction)
                 self.Legs.changeAnim(self.direction)
             if event.type == pygame.KEYUP:
-                self.updateWalk()
                 self.changeFullAnimation(self.direction)
 
     def tick(self, dt):
@@ -82,19 +80,6 @@ class SpriteCharacter(object):
         self.Head.changeAnim(direction)
         self.Torso.changeAnim(direction)
         self.Legs.changeAnim(direction)
-
-    def updateWalk(self):
-        x = 0
-        y = 0
-        for key in settings.DIRECT_DICT:
-            if data.keys[key]:
-                x += settings.DIRECT_DICT[key][0]
-                y += settings.DIRECT_DICT[key][1]
-
-        self.movement_composition = (x, y)
-        moving = self.movement_composition != (0, 0)
-
-        self.direction = (x, y, moving)
 
     def replace_animation(self, animation, style):
         self.moving_sprites.remove(animation.style)

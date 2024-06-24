@@ -57,8 +57,9 @@ def run_client(game, recv_data):
         else:
             data.others[str(player.user_id)] = player
             game.addGameObject(
-                DisplayPlayer(player.user_id, player.direction, player.styleIndexes)
+                DisplayPlayer(player.user_id, player.direction)
             )
+            print(player.direction)
 
             print("Created new user", str(player.user_id))
 
@@ -75,6 +76,7 @@ def manage_output(conn, game):
         if data.player_pos_updated:
             data.player_pos_updated = False
             position_data = data.player_self.serialise()
+
             # block = (len(position_data) + 1).to_bytes(1, byteorder='little') + position_data
             conn.sendto(position_data, (settings.host, settings.PORT))
             # sleep(0.01)

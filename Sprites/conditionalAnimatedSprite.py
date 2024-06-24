@@ -10,7 +10,7 @@ class ConditionalAnimatedSprite(pygame.sprite.Sprite):
 
         self.index = index                                          # The ID of the animation to be in use
         self.animations = animations                                # Array of possible animations
-        self.activeAnim = AnimatedSprite(self.animations[index])    # Currently active AnimatedSprite object
+        self.activeAnim = AnimatedSprite(self.animations[index], 0)    # Currently active AnimatedSprite object
 
         self.image = self.activeAnim.image
         self.rect = self.image.get_rect()
@@ -21,7 +21,7 @@ class ConditionalAnimatedSprite(pygame.sprite.Sprite):
 
     def changeAnim(self, index):
         self.index = index
-        self.activeAnim = AnimatedSprite(self.animations[index])
+        self.activeAnim = AnimatedSprite(self.animations[index], self.activeAnim.currentSprite)
 
 
 def conditionalAnimationConstructor(sprites, indexes):

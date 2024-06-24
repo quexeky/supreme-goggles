@@ -24,11 +24,14 @@ class PlayerData(object):
         if not (self.x == int(pos.x) and self.y == int(pos.y)):
             self.x = int(pos.x)
             self.y = int(pos.y)
-            self.direction = direction
             data.player_pos_updated = True
         if not (self.styleIndexes == styleIndexes):
             self.styleIndexes = styleIndexes
             data.player_pos_updated = True
+        if not (self.direction == direction):
+            self.direction = direction
+            data.player_pos_updated = True
+            print(self.direction)
 
     def serialise(self):
         # uid = int(self.user_id).to_bytes(1, byteorder="little", signed=False)
@@ -40,7 +43,11 @@ class PlayerData(object):
         head = int(self.styleIndexes[0]).to_bytes(1, byteorder="little", signed=True)
         torso = int(self.styleIndexes[1]).to_bytes(1, byteorder="little", signed=True)
         legs = int(self.styleIndexes[2]).to_bytes(1, byteorder="little", signed=True)
+
+        # Calculate the age of the data so to remove a major part of the delay
         age = int(calculate_age()).to_bytes(3, byteorder="little", signed=True)
+
+        print("Walking: ", walking)
 
         # print(len(uid + x + y))
 
@@ -59,6 +66,9 @@ def deserialise_player_data(serialised):
     torso = int.from_bytes((serialised[21],), byteorder="little", signed=True)
     legs = int.from_bytes((serialised[22],), byteorder="little", signed=True)
     age = int.from_bytes((serialised[23:26]), byteorder="little", signed=False)
+
+    #print("Walking: ", walking)
+    #print("Data: ", serialised[19])
 
     return PlayerData(
         uid, x, y, (directionX, directionY, walking), (head, torso, legs), age
