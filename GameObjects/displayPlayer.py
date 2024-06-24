@@ -4,7 +4,7 @@ from Sprites.sprites import CharacterSprite
 
 
 # A player class with only rendering code. Made explicitly for networking, although it could theoretically be
-# extended to be a generic NPC class in future. TODO
+# extended to be a generic NPC class in future
 class DisplayPlayer(gameObject.GameObject):
     def __init__(self, uid, direction):
         self.styleIndexes = (0, 0, 0)

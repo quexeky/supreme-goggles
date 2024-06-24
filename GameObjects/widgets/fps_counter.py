@@ -25,7 +25,9 @@ class FPS(widget.Widget):
         if self.last_updated >= 0.1:
             self.img = self.font.render(
                 # Pygame clock has a get_fps() function which comes in useful here
-                str(int(data.clock.get_fps())), True, self.textColour
+                str(int(data.clock.get_fps())),
+                True,
+                self.textColour,
             )
             self.last_updated = 0
 

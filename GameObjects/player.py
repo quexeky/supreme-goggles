@@ -97,4 +97,3 @@ class Player(gameObject.GameObject):
                 self.sprite.changeFullAnimation(self.direction)
             if event.type == pygame.KEYUP:
                 self.sprite.changeFullAnimation(self.direction)
-

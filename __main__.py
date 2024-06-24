@@ -31,11 +31,66 @@ def main():
     data.screen_rect = pygame.display.get_surface().get_rect()
     game = app.App()
     game.addGameObject(Background(-2000, -1000, -10))
-    game.addGameObject(TextBox(-3500, 0, 200, 100, text="Hello, human", textSize=30, textColour="white", colour="black"))
-    game.addGameObject(TextBox(-6000, 0, 250, 100, text="Why are you here?", textSize=30, textColour="white", colour="black"))
-    game.addGameObject(TextBox(-10000, 0, 500, 100, text="There's nothing out here, you know", textSize=30, textColour="white", colour="black"))
-    game.addGameObject(TextBox(-15000, 0, 300, 100, text="I mean it", textSize=30, textColour="white", colour="black"))
-    game.addGameObject(TextBox(-50000, 0, 300, 100, text="You idiot", textSize=30, textColour="white", colour="black"))
+    game.addGameObject(
+        TextBox(
+            -3500,
+            0,
+            200,
+            100,
+            text="Hello, human",
+            textSize=30,
+            textColour="white",
+            colour="black",
+        )
+    )
+    game.addGameObject(
+        TextBox(
+            -6000,
+            0,
+            250,
+            100,
+            text="Why are you here?",
+            textSize=30,
+            textColour="white",
+            colour="black",
+        )
+    )
+    game.addGameObject(
+        TextBox(
+            -10000,
+            0,
+            500,
+            100,
+            text="There's nothing out here, you know",
+            textSize=30,
+            textColour="white",
+            colour="black",
+        )
+    )
+    game.addGameObject(
+        TextBox(
+            -15000,
+            0,
+            300,
+            100,
+            text="I mean it",
+            textSize=30,
+            textColour="white",
+            colour="black",
+        )
+    )
+    game.addGameObject(
+        TextBox(
+            -50000,
+            0,
+            300,
+            100,
+            text="You idiot",
+            textSize=30,
+            textColour="white",
+            colour="black",
+        )
+    )
     game.addGameObject(Player(300, 300, 50, 50, 3, 10))
     game.addGameObject(Grass(350, 350, 1000))
     game.addGameObject(FPS(0, 0, z=100))

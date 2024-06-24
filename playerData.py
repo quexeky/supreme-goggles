@@ -10,6 +10,7 @@ def calculate_age():
     ).microseconds
     return seconds_since_midnight
 
+
 # The data class for passing raw bytes through the proxy server. Made custom instead of JSON because JSON was far too
 # Inefficient (used up at least twice as much bandwidth)
 class PlayerData(object):
