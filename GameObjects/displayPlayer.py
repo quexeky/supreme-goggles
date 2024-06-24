@@ -1,12 +1,12 @@
 import data
 from GameObjects import gameObject
-from Sprites.sprites import SpriteCharacter
+from Sprites.sprites import CharacterSprite
 
 
 class DisplayPlayer(gameObject.GameObject):
     def __init__(self, uid, direction):
         self.styleIndexes = (0, 0, 0)
-        self.sprite = SpriteCharacter(3, direction)                         # The entire player assembly
+        self.sprite = CharacterSprite(3, direction)                         # The entire player assembly
         super().__init__(
             0,
             0,

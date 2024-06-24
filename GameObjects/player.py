@@ -3,14 +3,14 @@ import pygame.transform
 import data
 import settings
 from GameObjects import gameObject
-from Sprites.sprites import SpriteCharacter
+from Sprites.sprites import CharacterSprite
 
 
 class Player(gameObject.GameObject):
     def __init__(self, x, y, w, h, scale, z=1):
         self.movement_composition = (0, 0)
         self.direction = (0, -1, False)
-        self.sprite = SpriteCharacter(3, self.direction)
+        self.sprite = CharacterSprite(3, self.direction)
         self.rect = self.sprite.img.get_rect(center=(x, y))
 
         super().__init__(x, y, self.sprite.img, scale, True, z)
@@ -48,16 +48,13 @@ class Player(gameObject.GameObject):
                 posUpdateY * settings.PLAYER_SPEED * dt,
             )
         )
-        # print(posUpdateX, posUpdateY)
         (self.rect.x, self.rect.y) = (self.pos.x, self.pos.y)
         (data.camera_position.x, data.camera_position.y) = (
             self.rect.center[0] - settings.SCREEN_SIZE.x / 2,
             self.rect.center[1] - settings.SCREEN_SIZE.y / 2,
         )
         self.clamp(data.screen_rect)
-        #print(self.direction)
         data.player_self.update_pos(self.pos, self.direction, self.sprite.styleIndexes)
-        # print(self.direction)
 
     def clamp(self, screen_rect):
         if not screen_rect.contains(self.rect):

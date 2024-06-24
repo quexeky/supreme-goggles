@@ -7,7 +7,8 @@ import pygame
 import app
 import data
 import settings
-from GameObjects.animationDemo import AnimationDemo
+from GameObjects.grass import Grass
+from GameObjects.background import Background
 from GameObjects.player import Player
 
 # import networking.server
@@ -29,10 +30,11 @@ def main():
     data.keys = pygame.key.get_pressed()
     data.screen_rect = pygame.display.get_surface().get_rect()
     game = app.App()
+    game.addGameObject(Background(0, 0, -10))
     game.addGameObject(Button(100, 100, 150, 150, text="Hi hooman", textSize=30))
     game.addGameObject(Button(500, 50, 100, 100, text="Hello, Jess", textSize=15))
     game.addGameObject(Player(300, 300, 50, 50, 3, 10))
-    game.addGameObject(AnimationDemo(350, 350, 1000))
+    game.addGameObject(Grass(350, 350, 1000))
     game.addGameObject(FPS(0, 0, z=100))
     threading.Thread(target=server_connect, args=(game,), daemon=True).start()
     game.main_loop()

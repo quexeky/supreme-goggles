@@ -2,23 +2,24 @@ import pygame
 
 import data
 import settings
-from Sprites.bodyType import BodyType, createStyleArr
+from Sprites.bodyType import BodyType, createBodySpriteArr
 
 
-class SpriteCharacter(object):
+# Custom implemented class for our own Sprite behaviours
+class CharacterSprite(object):
     def __init__(self, scale, direction):
         self.img = pygame.Surface((0, 0))
         self.num = 0
         self.Head = BodyType(
-            createStyleArr(["head1", "head2", "head3", "head4", "head5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
+            createBodySpriteArr(["head1", "head2", "head3", "head4", "head5"]),
             animation=direction,
         )
         self.Torso = BodyType(
-            createStyleArr(["torso1", "torso2", "torso3", "torso4", "torso5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
+            createBodySpriteArr(["torso1", "torso2", "torso3", "torso4", "torso5"]),
             animation=direction,
         )
         self.Legs = BodyType(
-            createStyleArr(["legs1", "legs2", "legs3", "legs4", "legs5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
+            createBodySpriteArr(["legs1", "legs2", "legs3", "legs4", "legs5"]),
             animation=direction,
         )
         self.movement_composition = (0, 0)
@@ -35,7 +36,7 @@ class SpriteCharacter(object):
 
         self.scale = scale
 
-    def update(self, events):
+    def update(self, events):  # TODO: Clean up
         for event in events:
             if event.type == pygame.KEYDOWN:
                 match event.key:
@@ -57,9 +58,6 @@ class SpriteCharacter(object):
                     self.Legs.styleIndex,
                 )
                 self.changeFullAnimation(self.direction)
-                self.Head.changeAnim(self.direction)
-                self.Torso.changeAnim(self.direction)
-                self.Legs.changeAnim(self.direction)
             if event.type == pygame.KEYUP:
                 self.changeFullAnimation(self.direction)
 

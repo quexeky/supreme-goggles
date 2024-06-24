@@ -47,8 +47,6 @@ class PlayerData(object):
         # Calculate the age of the data so to remove a major part of the delay
         age = int(calculate_age()).to_bytes(3, byteorder="little", signed=True)
 
-        print("Walking: ", walking)
-
         # print(len(uid + x + y))
 
         return x + y + directionX + directionY + walking + head + torso + legs + age

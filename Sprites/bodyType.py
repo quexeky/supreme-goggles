@@ -38,7 +38,7 @@ class BodyType:
         self.style.update(speed)
 
 
-def createStyleArr(names, height, width):
+def createBodySpriteArr(names):
     arr = []
     for name in names:
         arr.append(BodySprite(name))
