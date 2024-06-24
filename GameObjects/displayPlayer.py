@@ -6,7 +6,7 @@ from Sprites.sprites import SpriteCharacter
 class DisplayPlayer(gameObject.GameObject):
     def __init__(self, uid, direction, styleIndexes):
         self.styleIndexes = styleIndexes
-        self.sprite = SpriteCharacter(3, direction)
+        self.sprite = SpriteCharacter(3, direction)                         # The entire player assembly
         super().__init__(
             0,
             0,
@@ -24,7 +24,9 @@ class DisplayPlayer(gameObject.GameObject):
         self.updateBody(other)
         if other.direction != self.sprite.direction:
             self.sprite.changeFullAnimation(other.direction)
+            self.sprite.direction = other.direction
         self.sprite.tick(dt)
+
         self.img = self.sprite.img
         # print(self.sprite.direction)
 
@@ -42,6 +44,7 @@ class DisplayPlayer(gameObject.GameObject):
             self.styleIndexes = otherStyleIndexes
             print("Changed Torso")
         if otherStyleIndexes[2] != self.styleIndexes[2]:
-            self.sprite.replace_animation(self.sprite.Legs, otherStyleIndexes[2])
-            self.styleIndexes = otherStyleIndexes
-            print("Changed Legs")
+            return
+            #self.sprite.replace_animation(self.sprite.Legs, otherStyleIndexes[2])
+            #self.styleIndexes = otherStyleIndexes
+            #print("Changed Legs")

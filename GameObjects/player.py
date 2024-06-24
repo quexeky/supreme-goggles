@@ -42,7 +42,9 @@ class Player(gameObject.GameObject):
         self.clamp(data.screen_rect)
         data.player_self.update_pos(self.pos, self.direction, self.sprite.styleIndexes)
         # print(self.direction)
+
         self.sprite.update(events)
+
         self.sprite.tick(dt)
         self.direction = self.sprite.direction
 

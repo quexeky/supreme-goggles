@@ -22,7 +22,6 @@ class ConditionalAnimatedSprite(pygame.sprite.Sprite):
     def changeAnim(self, index):
         self.index = index
         self.activeAnim = AnimatedSprite(self.animations[index])
-        print("Changed Anim")
 
 
 def conditionalAnimationConstructor(sprites, indexes):

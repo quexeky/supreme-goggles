@@ -56,20 +56,17 @@ class SpriteCharacter(object):
                     self.Torso.styleIndex,
                     self.Legs.styleIndex,
                 )
-                self.update_walk()
+                self.updateWalk()
                 self.changeFullAnimation(self.direction)
                 self.Head.changeAnim(self.direction)
                 self.Torso.changeAnim(self.direction)
                 self.Legs.changeAnim(self.direction)
             if event.type == pygame.KEYUP:
-                self.update_walk()
+                self.updateWalk()
                 self.changeFullAnimation(self.direction)
 
     def tick(self, dt):
         self.moving_sprites.update(dt * settings.ANIMATION_RATE)
-        self.Head.update(dt * settings.ANIMATION_RATE)
-        self.Torso.update(dt * settings.ANIMATION_RATE)
-        self.Legs.update(dt * settings.ANIMATION_RATE)
 
         screen = pygame.Surface(
             (settings.SPRITE_WIDTH, settings.SPRITE_HEIGHT), pygame.SRCALPHA
@@ -86,7 +83,7 @@ class SpriteCharacter(object):
         self.Torso.changeAnim(direction)
         self.Legs.changeAnim(direction)
 
-    def update_walk(self):
+    def updateWalk(self):
         x = 0
         y = 0
         for key in settings.DIRECT_DICT:
