@@ -91,6 +91,7 @@ def main():
             colour="black",
         )
     )
+
     game.addGameObject(Player(300, 300, 50, 50, 3, 10))
     game.addGameObject(Grass(350, 350, 1000))
     game.addGameObject(FPS(0, 0, z=100))

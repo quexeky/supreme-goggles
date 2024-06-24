@@ -8,6 +8,7 @@ from Sprites.sprites import CharacterSprite
 
 class Player(gameObject.GameObject):
     def __init__(self, x, y, w, h, scale, z=1):
+        self.moving = False
         self.direction = (0, -1, False)
         self.sprite = CharacterSprite(3, self.direction)
         self.rect = self.sprite.img.get_rect(center=(x, y))
@@ -35,8 +36,9 @@ class Player(gameObject.GameObject):
 
         # Using this as a dirty way to update direction. It works the exact same as normal, just in a different spot
         # I don't like it because it looks ugly, but it works well
-        moving = (posUpdateX, posUpdateY) != (0, 0)
-        self.direction = (posUpdateX, posUpdateY, moving)
+        self.moving = (posUpdateX, posUpdateY) != (0, 0)
+
+        self.direction = (posUpdateX, posUpdateY, self.moving)
         self.sprite.direction = self.direction
 
         # Normalise the movement value if both values are either 1 or -1 to stop the play from moving too fast
@@ -79,7 +81,7 @@ class Player(gameObject.GameObject):
                     case pygame.K_n:
                         self.sprite.replace_animation(self.sprite.Legs, -1)
                     case pygame.K_COMMA:
-                        self.sprite.replace_animation(self.sprite.Torso, 1)
+                        self.sprite.replace_animation(self.sprite.Legs, 1)
                 self.sprite.styleIndexes = (
                     self.sprite.Head.styleIndex,
                     self.sprite.Torso.styleIndex,

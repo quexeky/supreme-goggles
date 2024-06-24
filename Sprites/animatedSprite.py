@@ -18,6 +18,8 @@ class AnimatedSprite(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
 
     def update(self, speed):
+        if len(self.animation) <= 1:
+            return
         self.currentSprite += speed
         if int(self.currentSprite) >= len(self.animation):
             self.currentSprite = 0

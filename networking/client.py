@@ -55,8 +55,8 @@ def run_client(game, recv_data):
 
 
 def manage_output(conn, game):
-    timeSinceLastUpdate = time.time()
     while True:
+        timeSinceLastUpdate = time.time()
         if game.done:
             break
         if (
@@ -67,6 +67,5 @@ def manage_output(conn, game):
             data.player_pos_updated = False
             position_data = data.player_self.serialise()
 
-            # block = (len(position_data) + 1).to_bytes(1, byteorder='little') + position_data
             conn.sendto(position_data, (settings.host, settings.PORT))
-            sleep(settings.CLIENT_SLEEP_TIME)
+        sleep(settings.CLIENT_SLEEP_TIME)
