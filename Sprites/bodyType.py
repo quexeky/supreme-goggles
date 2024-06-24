@@ -24,6 +24,8 @@ class BodyType:
             self.animation = key
         else:
             key = (self.animation[0], self.animation[1], False)
+            if key == (0, 0, False) or key == (0, 0, True):
+                key = (0, -1, False)
             self.style.activeAnim = self.style.animations[key]
             self.animation = key
 
