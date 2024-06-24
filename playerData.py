@@ -10,7 +10,8 @@ def calculate_age():
     ).microseconds
     return seconds_since_midnight
 
-
+# The data class for passing raw bytes through the proxy server. Made custom instead of JSON because JSON was far too
+# Inefficient (used up at least twice as much bandwidth)
 class PlayerData(object):
     def __init__(self, user_id, x, y, direction, styleIndexes, age=0):
         self.user_id = user_id
@@ -33,8 +34,8 @@ class PlayerData(object):
             data.player_pos_updated = True
             print(self.direction)
 
+    # Custom byte structure. UID is added by the server, so it shouldn't be added here
     def serialise(self):
-        # uid = int(self.user_id).to_bytes(1, byteorder="little", signed=False)
         x = int(self.x).to_bytes(8, byteorder="little", signed=True)
         y = int(self.y).to_bytes(8, byteorder="little", signed=True)
         directionX = int(self.direction[0]).to_bytes(1, byteorder="little", signed=True)
@@ -52,6 +53,7 @@ class PlayerData(object):
         return x + y + directionX + directionY + walking + head + torso + legs + age
 
 
+# Removed from the class itself because python wouldn't let me call class functions without initialising a class
 def deserialise_player_data(serialised):
     # print(len(serialised))
     uid = int.from_bytes((serialised[0],), byteorder="little", signed=False)
@@ -64,9 +66,6 @@ def deserialise_player_data(serialised):
     torso = int.from_bytes((serialised[21],), byteorder="little", signed=True)
     legs = int.from_bytes((serialised[22],), byteorder="little", signed=True)
     age = int.from_bytes((serialised[23:26]), byteorder="little", signed=False)
-
-    # print("Walking: ", walking)
-    # print("Data: ", serialised[19])
 
     return PlayerData(
         uid, x, y, (directionX, directionY, walking), (head, torso, legs), age

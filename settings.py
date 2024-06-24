@@ -2,8 +2,8 @@ import pygame
 
 MAPSIZE = pygame.math.Vector2(0, 0)
 CAPTION = "Supreme Goggles"
-SCREEN_SIZE = pygame.math.Vector2(500, 500)
-BACKGROUND_COLOR = pygame.Color("darkslategrey")
+SCREEN_SIZE = pygame.math.Vector2(1000, 1000)
+BACKGROUND_COLOR = pygame.Color("black")
 DIRECT_DICT = {
     pygame.K_LEFT: (-1, 0),
     pygame.K_RIGHT: (1, 0),

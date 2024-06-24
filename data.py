@@ -2,6 +2,9 @@ import pygame
 
 from playerData import PlayerData, calculate_age
 
+# Variables that are too far passed down the chain to be worth including. These variables must never be written to
+# twice at once though. That's how you get a segfault or some other major error
+
 camera_position = pygame.math.Vector2(0, 0)
 keys = 0
 screen_rect = 0

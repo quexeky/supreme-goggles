@@ -4,23 +4,27 @@ import threading
 
 
 def manage_client(payload, addr):
-    global client_counter
-    # print(payload)
-    if not clients.__contains__(addr):
-        print(addr)
-        if payload == b"Create Client!1!!!!":
-            s.sendto(int.to_bytes(client_counter, 1, "little"), addr)
-            clients.update({addr: client_counter})
-            client_counter += 1
-    else:
+    try:
+        global client_counter
         # print(payload)
-        sender_id = clients[addr]
+        if not clients.__contains__(addr):
+            print(addr)
+            if payload == b"Create Client!1!!!!":
+                s.sendto(int.to_bytes(client_counter, 1, "little"), addr)
+                clients.update({addr: client_counter})
+                # Giving each user their ID. Isn't shown to the user. This is just to slightly stop Declan's DDOS,
+                # but also because I thought it would fix a bug (it didn't), but it still works slightly better this
+                # way because it's a bit less bandwidth being transferred
+                client_counter += 1
+        else:
+            sender_id = clients[addr]
 
-        for client in clients.items():
-            if client[0] != addr:
-                # print("Sending update from {} to {}".format(sender_id, client))
-                id_payload = sender_id.to_bytes(1, "little", signed=False) + payload
-                s.sendto(id_payload, client[0])
+            for client in clients.items():
+                if client[0] != addr:
+                    id_payload = sender_id.to_bytes(1, "little", signed=False) + payload
+                    s.sendto(id_payload, client[0])
+    except Exception as e:
+        print("Server Error:", e)
 
 
 port = 8090
@@ -46,7 +50,6 @@ except socket.error as msg:
     sys.exit()
 
 while True:
-    # print("Waiting for connection")
     payload, addr = s.recvfrom(25)
+    # Multithreading it just for that little bit of extra safety if something dies while it's happening
     threading.Thread(target=manage_client, args=(payload, addr), daemon=True).start()
-    # sleep(0.01)

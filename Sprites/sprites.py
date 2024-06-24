@@ -35,32 +35,8 @@ class CharacterSprite(object):
 
         self.scale = scale
 
-    def update(self, events):  # TODO: Clean up
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                match event.key:
-                    case pygame.K_i:
-                        self.replace_animation(self.Head, -1)
-                    case pygame.K_p:
-                        self.replace_animation(self.Head, 1)
-                    case pygame.K_j:
-                        self.replace_animation(self.Torso, -1)
-                    case pygame.K_l:
-                        self.replace_animation(self.Torso, 1)
-                    case pygame.K_n:
-                        self.replace_animation(self.Legs, -1)
-                    case pygame.K_COMMA:
-                        self.replace_animation(self.Torso, 1)
-                self.styleIndexes = (
-                    self.Head.styleIndex,
-                    self.Torso.styleIndex,
-                    self.Legs.styleIndex,
-                )
-                self.changeFullAnimation(self.direction)
-            if event.type == pygame.KEYUP:
-                self.changeFullAnimation(self.direction)
-
-    def tick(self, dt):
+    #
+    def spriteUpdate(self, dt):
         self.moving_sprites.update(dt * settings.ANIMATION_RATE)
 
         screen = pygame.Surface(

@@ -3,10 +3,10 @@ import pygame.image
 from GameObjects.gameObject import GameObject
 
 
-# A sample to show how easy it is to add an animated object into the game, given a spritesheet
+# Example background object. Done very basically, but hey, it works. And the simpler, the better, right?
 class Background(GameObject):
     def __init__(self, x, y, z):
         self.sprite = pygame.image.load("media/background.PNG").convert_alpha()
-        s = pygame.transform.scale(self.sprite, (5000, 5000))
+        s = pygame.transform.scale(self.sprite, (4000, 4000))
 
         super().__init__(x, y, s, 1, z=z)

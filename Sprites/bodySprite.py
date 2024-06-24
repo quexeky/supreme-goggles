@@ -25,6 +25,8 @@ class BodySprite(pygame.sprite.Sprite):
             spritesDir=spritesDir,
             padding=0,
         )
+        # Custom dictionary for quickly looking up all the sprites. Could probably be done in a function, but that
+        # would be a bit slower and it's harder to get your head around to change. Hence this is the best option
         animations = {
             (0, -1, False): [sprites[8]],  # N
             (1, -1, False): [sprites[9]],  # NE
@@ -44,6 +46,8 @@ class BodySprite(pygame.sprite.Sprite):
             (-1, -1, True): animationConstructor(sprites, [7, 15, 23, 15]),  # NW Walk
         }
 
+        # Think of it as a 2D array. The active animated sprite is the x, the actual frame is the y. Put in both
+        # and then you get your desired sprite in a way that can be easily moved around
         self.styles = ConditionalAnimatedSprite(animations, index=(0, -1, True))
 
         self.image = self.styles.image
@@ -56,4 +60,3 @@ class BodySprite(pygame.sprite.Sprite):
     def changeAnim(self, index):
         self.styles.index = index
         self.styles.changeAnim(index)
-        # print("Changed bodySprite anim")

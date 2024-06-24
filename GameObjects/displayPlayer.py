@@ -3,6 +3,8 @@ from GameObjects import gameObject
 from Sprites.sprites import CharacterSprite
 
 
+# A player class with only rendering code. Made explicitly for networking, although it could theoretically be
+# extended to be a generic NPC class in future. TODO
 class DisplayPlayer(gameObject.GameObject):
     def __init__(self, uid, direction):
         self.styleIndexes = (0, 0, 0)
@@ -25,11 +27,9 @@ class DisplayPlayer(gameObject.GameObject):
         if other.direction != self.sprite.direction:
             self.sprite.changeFullAnimation(other.direction)
             self.sprite.direction = other.direction
-            print(other.direction)
-        self.sprite.tick(dt)
+        self.sprite.spriteUpdate(dt)
 
         self.img = self.sprite.img
-        # print(self.sprite.direction)
 
     def updateBody(self, other):
         otherStyleIndexes = other.styleIndexes
