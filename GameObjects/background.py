@@ -7,6 +7,6 @@ from GameObjects.gameObject import GameObject
 class Background(GameObject):
     def __init__(self, x, y, z):
         self.sprite = pygame.image.load("media/background.PNG").convert_alpha()
-        s = pygame.transform.scale(self.sprite, (4000, 4000))
+        s = pygame.transform.scale(self.sprite, (4000, 2448))
 
         super().__init__(x, y, s, 1, z=z)
