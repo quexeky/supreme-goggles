@@ -1,5 +1,7 @@
 import pygame
 
+import settings
+
 
 def getSprite(spriteSheet, x, y, w, h):
     sprite = pygame.Surface((w, h), pygame.SRCALPHA)
@@ -15,7 +17,7 @@ class BodySprite(pygame.sprite.Sprite):
         self.spritesDir = "media/"
 
         self.sprites = []
-        self.parseSprites(name, 8, 3, 24, 18, 24, 0)
+        self.parseSprites(name, 8, 3, 24, settings.spriteWidth, settings.spriteHeight, 0)
 
         self.animations = {
             (0, -1, False): [self.sprites[8]],                                                           # N
@@ -53,8 +55,8 @@ class BodySprite(pygame.sprite.Sprite):
                 self.sprites.append(
                     getSprite(
                         self.spriteSheet,
-                        x * width + x * padding + 2,
-                        y * height + y * padding + 2,
+                        x * width + x * padding,
+                        y * height + y * padding,
                         width,
                         height,
                     )

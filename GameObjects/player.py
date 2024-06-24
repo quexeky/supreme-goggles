@@ -8,19 +8,27 @@ from Sprites.sprites import SpriteCharacter
 
 class Player(gameObject.GameObject):
     def __init__(self, x, y, w, h, scale, z=1):
-        s = pygame.transform.scale(settings.playerImage(w, h), (w * scale, w * scale))
-        super().__init__(x, y, s, scale, True, z)
-        self.rect = self.img.get_rect(center=(x, y))
         self.movement_composition = (0, 0)
         self.direction = (0, -1, False)
         self.sprite = SpriteCharacter(3, self.direction)
+        self.rect = self.sprite.img.get_rect(center=(x, y))
+
+        super().__init__(x, y, self.sprite.img, scale, True, z)
         #print(self.rect.center)
 
     def update(self, dt, events):
+        posUpdateX = 0
+        posUpdateY = 0
         for key in settings.DIRECT_DICT:
             if data.keys[key]:
-                self.pos.x += settings.DIRECT_DICT[key][0] * settings.PLAYER_SPEED * dt
-                self.pos.y += settings.DIRECT_DICT[key][1] * settings.PLAYER_SPEED * dt
+                posUpdateX += settings.DIRECT_DICT[key][0]
+                posUpdateY += settings.DIRECT_DICT[key][1]
+        if abs(posUpdateX) == 1 and abs(posUpdateY) == 1:
+            (posUpdateX, posUpdateY) = (posUpdateX * 1.412 / 2, posUpdateY * 1.412 / 2)
+
+        self.pos += pygame.Vector2((posUpdateX * settings.PLAYER_SPEED * dt, posUpdateY * settings.PLAYER_SPEED * dt))
+        # print(posUpdateX, posUpdateY)
+
         (self.rect.x, self.rect.y) = (self.pos.x, self.pos.y)
         (data.camera_position.x, data.camera_position.y) = (
             self.rect.center[0] - settings.SCREEN_SIZE.x / 2,

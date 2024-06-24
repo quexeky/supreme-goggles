@@ -2,8 +2,6 @@ import pygame
 
 import data
 import settings
-from GameObjects import gameObject
-from Sprites.animLookup import table
 from Sprites.bodySprite import BodySprite
 from Sprites.bodyType import BodyType
 
@@ -70,7 +68,7 @@ class SpriteCharacter(object):
                                           (settings.spriteWidth * self.scale, settings.spriteHeight * self.scale))
 
     def changeFullAnimation(self, direction):
-        print(direction)
+        # print(direction)
         self.Head.changeAnim(direction)
         self.Torso.changeAnim(direction)
         self.Legs.changeAnim(direction)

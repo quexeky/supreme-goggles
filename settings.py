@@ -15,7 +15,7 @@ DIRECT_DICT = {
     pygame.K_w: (0, -1),
     pygame.K_s: (0, 1),
 }
-PLAYER_COLOUR = "tomato"
+PLAYER_COLOUR = "yellow"
 PLAYER_SPEED = 300
 ANIMATION_RATE = 4
 
@@ -25,7 +25,7 @@ PORT = 8090
 playerDimensions = (18, 24)
 
 spriteWidth = 18
-spriteHeight = 24
+spriteHeight = 23
 
 
 def playerImage(w, h):

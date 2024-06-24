@@ -1,5 +1,27 @@
 import socket
 import sys
+import threading
+from time import sleep
+
+
+def manage_client(payload, addr):
+    global client_counter
+    # print(payload)
+    if not clients.__contains__(addr):
+        if payload == b"Create Client!1!!!!":
+            s.sendto(int.to_bytes(client_counter, 1, "little"), addr)
+            clients.update({addr: client_counter})
+            client_counter += 1
+    else:
+        # print(payload)
+        sender_id = clients[addr]
+
+        for client in clients.items():
+            if client[0] != addr:
+                # print("Sending update from {} to {}".format(sender_id, client))
+                id_payload = sender_id.to_bytes(1, 'little', signed=False) + payload
+                s.sendto(id_payload, client[0])
+
 
 port = 8090
 host = "0.0.0.0"
@@ -26,19 +48,6 @@ except socket.error as msg:
 while True:
     # print("Waiting for connection")
     payload, addr = s.recvfrom(22)
-    # print(payload)
-    if not clients.__contains__(addr):
-        if payload == b"Create Client!1!!!!":
-            s.sendto(int.to_bytes(client_counter, 1, "little"), addr)
-            clients.update({addr: client_counter})
-            client_counter += 1
-    else:
-        # print(payload)
-        sender_id = clients[addr]
-
-        for client in clients.items():
-            if client[0] != addr:
-                print("Sending update from {} to {}".format(sender_id, client))
-                id_payload = sender_id.to_bytes(1, 'little', signed=False) + payload
-                s.sendto(id_payload, client[0])
+    threading.Thread(target=manage_client, args=(payload, addr)).start()
+    sleep(0.01)
 
