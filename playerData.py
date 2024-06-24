@@ -1,13 +1,20 @@
+from datetime import datetime
+
 import data
 
+def calculate_age():
+    now = datetime.now()
+    seconds_since_midnight = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).microseconds
+    return seconds_since_midnight
 
 class PlayerData(object):
-    def __init__(self, user_id, x, y, direction, styleIndexes):
+    def __init__(self, user_id, x, y, direction, styleIndexes, age=0):
         self.user_id = user_id
         self.x = x
         self.y = y
         self.direction = direction
         self.styleIndexes = styleIndexes
+        self.age = age
 
     def update_pos(self, pos, direction, styleIndexes):
         if not (self.x == int(pos.x) and self.y == int(pos.y)):
@@ -29,14 +36,15 @@ class PlayerData(object):
         head = int(self.styleIndexes[0]).to_bytes(1, byteorder="little", signed=True)
         torso = int(self.styleIndexes[1]).to_bytes(1, byteorder="little", signed=True)
         legs = int(self.styleIndexes[2]).to_bytes(1, byteorder="little", signed=True)
+        age = int(calculate_age()).to_bytes(3, byteorder="little", signed=True)
 
         # print(len(uid + x + y))
 
-        return x + y + directionX + directionY + walking + head + torso + legs
+        return x + y + directionX + directionY + walking + head + torso + legs + age
 
 
 def deserialise_player_data(serialised):
-    print(len(serialised))
+    # print(len(serialised))
     uid = int.from_bytes((serialised[0],), byteorder="little", signed=False)
     x = int.from_bytes(serialised[1:8], byteorder="little", signed=True)
     y = int.from_bytes(serialised[9:16], byteorder="little", signed=True)
@@ -46,5 +54,7 @@ def deserialise_player_data(serialised):
     head = int.from_bytes((serialised[20],), byteorder="little", signed=True)
     torso = int.from_bytes((serialised[21],), byteorder="little", signed=True)
     legs = int.from_bytes((serialised[22],), byteorder="little", signed=True)
+    age = int.from_bytes((serialised[23:26]), byteorder="little", signed=False)
 
-    return PlayerData(uid, x, y, (directionX, directionY, walking), (head, torso, legs))
+    return PlayerData(uid, x, y, (directionX, directionY, walking), (head, torso, legs), age)
+

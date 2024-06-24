@@ -29,11 +29,11 @@ def manage_input(conn, game):
         if game.done:
             break
         # conn.sendto(b"Create Client!1!!", (settings.host, settings.PORT))
-        recv_data = conn.recvfrom(23)
+        recv_data = conn.recvfrom(26)
         if not recv_data:
             break
 
-        run_client(game, recv_data)
+        # run_client(game, recv_data)
         threading.Thread(target=run_client, args=(game, recv_data), daemon=True).start()
 
 
@@ -46,6 +46,9 @@ def run_client(game, recv_data):
         # block = json.loads(d)
 
         player = playerData.deserialise_player_data(recv_data[0])
+        if (player.age - data.current_time) > settings.max_data_age:
+            print("Old data")
+            return
         # print((player.x, player.y))
         # print("Received UID:", player.user_id)
 
@@ -53,7 +56,7 @@ def run_client(game, recv_data):
         if data.others.get(str(player.user_id)):
             data.others[str(player.user_id)] = player
 
-            print("Updated old user", str(player.user_id))
+            # print("Updated old user", str(player.user_id))
         else:
             data.others[str(player.user_id)] = player
             game.addGameObject(DisplayPlayer(player.user_id, player.direction, player.styleIndexes))

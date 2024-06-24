@@ -1,6 +1,6 @@
 import pygame
 
-from playerData import PlayerData
+from playerData import PlayerData, calculate_age
 
 camera_position = pygame.math.Vector2(0, 0)
 keys = 0
@@ -10,3 +10,4 @@ player_pos = pygame.Vector2((0, 0))
 others = {}
 player_pos_updated = True
 clock = None
+current_time = calculate_age()

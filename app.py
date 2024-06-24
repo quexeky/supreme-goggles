@@ -2,6 +2,7 @@ import pygame
 
 import data
 import settings
+from playerData import calculate_age
 
 
 class App(object):
@@ -42,6 +43,7 @@ class App(object):
         """
         Update must acccept and pass dt to all elements that need to update.
         """
+        data.current_time = calculate_age()
         for gameObject in self.gameObjects:
             gameObject.update(dt, self.events)
 

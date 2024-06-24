@@ -33,3 +33,6 @@ def playerImage(w, h):
     pygame.draw.circle(s, PLAYER_COLOUR, s.get_rect().center, w / 2)
     s = s.convert_alpha()
     return s
+
+
+max_data_age = 120000
