@@ -49,5 +49,4 @@ while True:
     # print("Waiting for connection")
     payload, addr = s.recvfrom(25)
     threading.Thread(target=manage_client, args=(payload, addr), daemon=True).start()
-    sleep(0.01)
-
+    # sleep(0.01)

@@ -35,4 +35,4 @@ def playerImage(w, h):
     return s
 
 
-max_data_age = 120000
+max_data_age = 200000

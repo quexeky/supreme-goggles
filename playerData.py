@@ -2,10 +2,12 @@ from datetime import datetime
 
 import data
 
+
 def calculate_age():
     now = datetime.now()
     seconds_since_midnight = (now - now.replace(hour=0, minute=0, second=0, microsecond=0)).microseconds
     return seconds_since_midnight
+
 
 class PlayerData(object):
     def __init__(self, user_id, x, y, direction, styleIndexes, age=0):
@@ -57,4 +59,3 @@ def deserialise_player_data(serialised):
     age = int.from_bytes((serialised[23:26]), byteorder="little", signed=False)
 
     return PlayerData(uid, x, y, (directionX, directionY, walking), (head, torso, legs), age)
-
