@@ -21,7 +21,7 @@ def main():
     """
     Initialize; create an App; and start the main loop.
     """
-    settings.host = input("Host IP:")
+    settings.host = input("Host IP: ")
     os.environ["SDL_VIDEO_CENTERED"] = "1"
     pygame.init()
     pygame.display.set_caption(settings.CAPTION)

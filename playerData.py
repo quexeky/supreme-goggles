@@ -33,7 +33,6 @@ class PlayerData(object):
         if not (self.direction == direction):
             self.direction = direction
             data.player_pos_updated = True
-            print(self.direction)
 
     # Custom byte structure. UID is added by the server, so it shouldn't be added here
     def serialise(self):

@@ -19,11 +19,9 @@ class TextBox(widget.Widget):
         pygame.draw.rect(s, colour, pygame.Rect(0, 0, w, h))
         if text != "":
             font = pygame.font.SysFont("Arial", textSize)
-            print(self.textColour)
             text = font.render(text, True, self.textColour)
             textRect = text.get_rect()
             textRect.center = s.get_rect().center
-            print(textRect.center)
             s.blit(text, textRect)
 
         super().__init__(x, y, w, h, s, text, textSize, textColour, colour, z)

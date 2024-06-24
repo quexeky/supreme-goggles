@@ -21,12 +21,16 @@ ANIMATION_RATE = 4
 host = "0.0.0.0"
 PORT = 8090
 
+# Dimensions of the player sprite image
 SPRITE_WIDTH = 18
 SPRITE_HEIGHT = 23
 
+# Size of the fully serialised packet in bytes
 PACKET_SIZE = 26
 
 PASSIVE_UPDATE_FREQUENCY = 0.1
 
-
-max_data_age = 200000
+# Maximum age of any packet. If it's older than this (in microseconds), then discard it
+MAX_DATA_AGE = 150000
+# How long between each packet to be sent. Relieves some load from the cpu
+CLIENT_SLEEP_TIME = 0.01

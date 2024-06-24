@@ -2,6 +2,7 @@ import json
 import socket
 import threading
 import time
+from time import sleep
 
 import data
 import playerData
@@ -39,7 +40,7 @@ def manage_input(conn, game):
 def run_client(game, recv_data):
     try:
         player = playerData.deserialise_player_data(recv_data[0])
-        if (player.age - data.current_time) > settings.max_data_age:
+        if (player.age - data.current_time) > settings.MAX_DATA_AGE:
             return
 
         if data.others.get(str(player.user_id)):
@@ -68,4 +69,4 @@ def manage_output(conn, game):
 
             # block = (len(position_data) + 1).to_bytes(1, byteorder='little') + position_data
             conn.sendto(position_data, (settings.host, settings.PORT))
-            # sleep(0.01)
+            sleep(settings.CLIENT_SLEEP_TIME)

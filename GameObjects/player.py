@@ -59,16 +59,7 @@ class Player(gameObject.GameObject):
             self.rect.center[1] - settings.SCREEN_SIZE.y / 2,
         )
 
-        self.clamp(data.screen_rect)
         data.player_self.update_pos(self.pos, self.direction, self.sprite.styleIndexes)
-
-    def clamp(self, screen_rect):
-        if not screen_rect.contains(self.rect):
-            self.rect.clamp_ip(screen_rect)
-            (self.x, self.y) = self.rect_pos()
-
-    def rect_pos(self):
-        return self.rect.x, self.rect.y
 
     # Changing the player sprites. Might be able to put it into a dictonary like the DATA_DICT, but to be frank it's
     # a massive amount of trouble optimising something that doesn't need to be optimised. And it would probably be

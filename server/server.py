@@ -6,7 +6,6 @@ import threading
 def manage_client(payload, addr):
     try:
         global client_counter
-        # print(payload)
         if not clients.__contains__(addr):
             print(addr)
             if payload == b"Create Client!1!!!!":
