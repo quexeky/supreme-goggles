@@ -10,32 +10,34 @@ def getSprite(spriteSheet, x, y, w, h):
 
 
 class BodySprite(pygame.sprite.Sprite):
-    def __init__(self, name, direction=(0, -1, False)):
+    def __init__(self, name, spriteHeight, spriteWidth, direction=(0, -1, False), padding=0):
         super().__init__()
 
         self.spriteSheet = None
         self.spritesDir = "media/"
 
         self.sprites = []
-        self.parseSprites(name, 8, 3, 24, settings.spriteWidth, settings.spriteHeight, 0)
+        self.parseSprites(
+            name, 8, 3, 24, spriteHeight, spriteWidth, padding
+        )
 
         self.animations = {
-            (0, -1, False): [self.sprites[8]],                                                           # N
-            (1, -1, False): [self.sprites[9]],                                                           # NE
-            (1, 0, False): [self.sprites[10]],                                                          # E
-            (1, 1, False): [self.sprites[11]],                                                         # SE
-            (0, 1, False): [self.sprites[12]],                                                         # S
-            (-1, 1, False): [self.sprites[13]],                                                        # SW
-            (-1, 0, False): [self.sprites[14]],                                                         # W
-            (-1, -1, False): [self.sprites[15]],                                                         # NW
-            (0, -1, True): [self.sprites[0], self.sprites[8], self.sprites[16], self.sprites[8]],        # N Walk
-            (1, -1, True): [self.sprites[1], self.sprites[9], self.sprites[17], self.sprites[9]],        # NE Walk
-            (1, 0, True): [self.sprites[2], self.sprites[10], self.sprites[18], self.sprites[10]],      # E Walk
-            (1, 1, True): [self.sprites[3], self.sprites[11], self.sprites[19], self.sprites[11]],     # SE Walk
-            (0, 1, True): [self.sprites[4], self.sprites[12], self.sprites[20], self.sprites[12]],     # S Walk
-            (-1, 1, True): [self.sprites[5], self.sprites[13], self.sprites[21], self.sprites[13]],    # SW Walk
-            (-1, 0, True): [self.sprites[6], self.sprites[14], self.sprites[22], self.sprites[14]],     # W Walk
-            (-1, -1, True): [self.sprites[7], self.sprites[15], self.sprites[23], self.sprites[15]],     # NW Walk
+            (0, -1, False): [self.sprites[8]],                              # N
+            (1, -1, False): [self.sprites[9]],                              # NE
+            (1, 0, False): [self.sprites[10]],                              # E
+            (1, 1, False): [self.sprites[11]],                              # SE
+            (0, 1, False): [self.sprites[12]],                              # S
+            (-1, 1, False): [self.sprites[13]],                             # SW
+            (-1, 0, False): [self.sprites[14]],                             # W
+            (-1, -1, False): [self.sprites[15]],                            # NW
+            (0, -1, True): self.spriteArrConstructor([0, 8, 16, 8]),        # N Walk
+            (1, -1, True): self.spriteArrConstructor([1, 9, 17, 9]),        # NE Walk
+            (1, 0, True): self.spriteArrConstructor([2, 10, 18, 10]),       # E Walk
+            (1, 1, True): self.spriteArrConstructor([3, 11, 19, 11]),       # SE Walk
+            (0, 1, True): self.spriteArrConstructor([4, 12, 20, 12]),       # S Walk
+            (-1, 1, True): self.spriteArrConstructor([5, 13, 21, 13]),      # SW Walk
+            (-1, 0, True): self.spriteArrConstructor([6, 14, 22, 14]),      # W Walk
+            (-1, -1, True): self.spriteArrConstructor([7, 15, 23, 15]),     # NW Walk
         }
         self.currentSprite = 0  # 0 is the base sprite, not in an animation
         self.activeAnim = self.animations[direction]
@@ -71,3 +73,9 @@ class BodySprite(pygame.sprite.Sprite):
         self.image = self.activeAnim[
             int(self.currentSprite)
         ]  # rounds to nearest int so speed works
+
+    def spriteArrConstructor(self, indexes):
+        arr = []
+        for i in indexes:
+            arr.append(self.sprites[i])
+        return arr

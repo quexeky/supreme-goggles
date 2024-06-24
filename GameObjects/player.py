@@ -14,7 +14,7 @@ class Player(gameObject.GameObject):
         self.rect = self.sprite.img.get_rect(center=(x, y))
 
         super().__init__(x, y, self.sprite.img, scale, True, z)
-        #print(self.rect.center)
+        # print(self.rect.center)
 
     def update(self, dt, events):
         posUpdateX = 0
@@ -26,7 +26,12 @@ class Player(gameObject.GameObject):
         if abs(posUpdateX) == 1 and abs(posUpdateY) == 1:
             (posUpdateX, posUpdateY) = (posUpdateX * 1.412 / 2, posUpdateY * 1.412 / 2)
 
-        self.pos += pygame.Vector2((posUpdateX * settings.PLAYER_SPEED * dt, posUpdateY * settings.PLAYER_SPEED * dt))
+        self.pos += pygame.Vector2(
+            (
+                posUpdateX * settings.PLAYER_SPEED * dt,
+                posUpdateY * settings.PLAYER_SPEED * dt,
+            )
+        )
         # print(posUpdateX, posUpdateY)
 
         (self.rect.x, self.rect.y) = (self.pos.x, self.pos.y)

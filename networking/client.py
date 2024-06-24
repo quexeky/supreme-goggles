@@ -1,7 +1,6 @@
 import json
 import socket
 import threading
-from asyncio import sleep
 
 import data
 import playerData
@@ -16,9 +15,7 @@ def server_connect(game):
 
     self_id = int.from_bytes(sock.recv(1), "little")
     data.player_self = playerData.PlayerData(
-        self_id, data.player_pos.x, data.player_pos.y,
-        (0, 1, False),
-        (0, 0, 0)
+        self_id, data.player_pos.x, data.player_pos.y, (0, 1, False), (0, 0, 0)
     )
     threading.Thread(target=manage_input, args=(sock, game), daemon=True).start()
     threading.Thread(target=manage_output, args=(sock, game), daemon=True).start()
@@ -29,7 +26,7 @@ def manage_input(conn, game):
         if game.done:
             break
         # conn.sendto(b"Create Client!1!!", (settings.host, settings.PORT))
-        recv_data = conn.recvfrom(26)
+        recv_data = conn.recvfrom(settings.PACKET_SIZE)
         if not recv_data:
             break
 
@@ -59,7 +56,9 @@ def run_client(game, recv_data):
             # print("Updated old user", str(player.user_id))
         else:
             data.others[str(player.user_id)] = player
-            game.addGameObject(DisplayPlayer(player.user_id, player.direction, player.styleIndexes))
+            game.addGameObject(
+                DisplayPlayer(player.user_id, player.direction, player.styleIndexes)
+            )
 
             print("Created new user", str(player.user_id))
 

@@ -25,6 +25,7 @@ class Widget(GameObject):
         self.textColour = textColour
         self.colour = colour
 
+
 """
     def draw(self):
         if self.enabled:

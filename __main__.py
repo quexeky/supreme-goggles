@@ -12,7 +12,6 @@ from GameObjects.player import Player
 # import networking.server
 from GameObjects.widgets.button import Button
 from GameObjects.widgets.fps_counter import FPS
-from Sprites.sprites import SpriteCharacter
 from networking.client import server_connect
 
 

@@ -1,3 +1,6 @@
+from Sprites.bodySprite import BodySprite
+
+
 class BodyType:
     def __init__(self, styles, styleIndex=0, animation=(0, -1, False)):
         self.style = None
@@ -30,3 +33,10 @@ class BodyType:
             self.animation = key
 
         return self.style.activeAnim
+
+
+def createBodyTypeArr(names, height, width):
+    arr = []
+    for name in names:
+        arr.append(BodySprite(name))
+    return arr
