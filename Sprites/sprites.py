@@ -2,7 +2,7 @@ import pygame
 
 import data
 import settings
-from Sprites.bodyType import BodyType, createBodyTypeArr
+from Sprites.bodyType import BodyType, createStyleArr
 
 
 class SpriteCharacter(object):
@@ -10,15 +10,15 @@ class SpriteCharacter(object):
         self.img = pygame.Surface((0, 0))
         self.num = 0
         self.Head = BodyType(
-            createBodyTypeArr(["head1", "head2", "head3", "head4", "head5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
+            createStyleArr(["head1", "head2", "head3", "head4", "head5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
             animation=direction,
         )
         self.Torso = BodyType(
-            createBodyTypeArr(["torso1", "torso2", "torso3", "torso4", "torso5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
+            createStyleArr(["torso1", "torso2", "torso3", "torso4", "torso5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
             animation=direction,
         )
         self.Legs = BodyType(
-            createBodyTypeArr(["legs1", "legs2", "legs3", "legs4", "legs5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
+            createStyleArr(["legs1", "legs2", "legs3", "legs4", "legs5"], settings.SPRITE_HEIGHT, settings.SPRITE_WIDTH),
             animation=direction,
         )
         self.movement_composition = (0, 0)
@@ -58,12 +58,18 @@ class SpriteCharacter(object):
                 )
                 self.update_walk()
                 self.changeFullAnimation(self.direction)
+                self.Head.changeAnim(self.direction)
+                self.Torso.changeAnim(self.direction)
+                self.Legs.changeAnim(self.direction)
             if event.type == pygame.KEYUP:
                 self.update_walk()
                 self.changeFullAnimation(self.direction)
 
     def tick(self, dt):
         self.moving_sprites.update(dt * settings.ANIMATION_RATE)
+        self.Head.update(dt * settings.ANIMATION_RATE)
+        self.Torso.update(dt * settings.ANIMATION_RATE)
+        self.Legs.update(dt * settings.ANIMATION_RATE)
 
         screen = pygame.Surface(
             (settings.SPRITE_WIDTH, settings.SPRITE_HEIGHT), pygame.SRCALPHA
@@ -95,5 +101,5 @@ class SpriteCharacter(object):
 
     def replace_animation(self, animation, style):
         self.moving_sprites.remove(animation.style)
-        self.moving_sprites.add(animation.setStyle(style))
+        self.moving_sprites.add(animation.changeStyle(style))
         return

@@ -3,10 +3,10 @@ from Sprites.bodySprite import BodySprite
 
 class BodyType:
     def __init__(self, styles, styleIndex=0, animation=(0, -1, False)):
-        self.style = None
-        self.styles = styles
-        self.styleIndex = styleIndex
-        self.animation = animation
+        self.style = None                   # The active BodySprite
+        self.styles = styles                # The array of Styles
+        self.styleIndex = styleIndex        # The ID of the style currently in use
+        self.animation = animation          # The Animation ID
 
         self.changeStyle(0)
 
@@ -23,19 +23,23 @@ class BodyType:
 
     def changeAnim(self, key):
         if key != (0, 0, False) and key != (0, 0, True):
-            self.style.activeAnim = self.style.animations[key]
+            print(self.style)
+            self.style.changeAnim(key)
             self.animation = key
         else:
             key = (self.animation[0], self.animation[1], False)
             if key == (0, 0, False) or key == (0, 0, True):
                 key = (0, -1, False)
-            self.style.activeAnim = self.style.animations[key]
+            self.style.changeAnim(key)
             self.animation = key
 
-        return self.style.activeAnim
+        return self.style.styles.index
+
+    def update(self, speed):
+        self.style.update(speed)
 
 
-def createBodyTypeArr(names, height, width):
+def createStyleArr(names, height, width):
     arr = []
     for name in names:
         arr.append(BodySprite(name))

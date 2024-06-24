@@ -14,6 +14,7 @@ DIRECT_DICT = {
     pygame.K_w: (0, -1),
     pygame.K_s: (0, 1),
 }
+
 PLAYER_SPEED = 300
 ANIMATION_RATE = 4
 
