@@ -1,9 +1,6 @@
 import pygame.image
 
-import settings
 from GameObjects.gameObject import GameObject
-from Sprites.animatedSprite import AnimatedSprite
-from Sprites.spriteSheets import parseSprites
 
 
 # A sample to show how easy it is to add an animated object into the game, given a spritesheet

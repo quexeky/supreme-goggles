@@ -9,7 +9,9 @@ def getSprite(spriteSheet, x, y, w, h):
 
 
 # Helper function to convert a sprite sheet into an array of sprites
-def parseSprites(name, rowWidth, columnHeight, length, width, height, spritesDir="media/", padding=0):
+def parseSprites(
+    name, rowWidth, columnHeight, length, width, height, spritesDir="media/", padding=0
+):
     spriteSheet = pygame.image.load(f"{spritesDir}{name}.PNG")
 
     sprites = []

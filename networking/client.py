@@ -2,7 +2,6 @@ import json
 import socket
 import threading
 import time
-from datetime import datetime
 
 import data
 import playerData
@@ -58,9 +57,7 @@ def run_client(game, recv_data):
             # print("Updated old user", str(player.user_id))
         else:
             data.others[str(player.user_id)] = player
-            game.addGameObject(
-                DisplayPlayer(player.user_id, player.direction)
-            )
+            game.addGameObject(DisplayPlayer(player.user_id, player.direction))
             print(player.direction)
 
             print("Created new user", str(player.user_id))
@@ -76,7 +73,10 @@ def manage_output(conn, game):
     while True:
         if game.done:
             break
-        if data.player_pos_updated or (time.time() - timeSinceLastUpdate) > settings.PASSIVE_UPDATE_FREQUENCY:
+        if (
+            data.player_pos_updated
+            or (time.time() - timeSinceLastUpdate) > settings.PASSIVE_UPDATE_FREQUENCY
+        ):
             timeSinceLastUpdate = time.time()
             data.player_pos_updated = False
             position_data = data.player_self.serialise()

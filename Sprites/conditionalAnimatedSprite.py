@@ -26,4 +26,6 @@ class ConditionalAnimatedSprite(pygame.sprite.Sprite):
     # Branching down animation changing to the most basic class
     def changeAnim(self, index):
         self.index = index
-        self.activeAnim = AnimatedSprite(self.animations[index], self.activeAnim.currentSprite)
+        self.activeAnim = AnimatedSprite(
+            self.animations[index], self.activeAnim.currentSprite
+        )

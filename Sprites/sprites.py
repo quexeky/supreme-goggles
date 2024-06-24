@@ -1,6 +1,5 @@
 import pygame
 
-import data
 import settings
 from Sprites.bodyType import BodyType, createBodySpriteArr
 

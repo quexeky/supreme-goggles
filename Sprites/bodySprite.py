@@ -16,7 +16,14 @@ class BodySprite(pygame.sprite.Sprite):
     def __init__(self, name, spritesDir="media/"):
         super().__init__()
         sprites = parseSprites(
-            name, 8, 3, 24, settings.SPRITE_WIDTH, settings.SPRITE_HEIGHT, spritesDir=spritesDir, padding=0
+            name,
+            8,
+            3,
+            24,
+            settings.SPRITE_WIDTH,
+            settings.SPRITE_HEIGHT,
+            spritesDir=spritesDir,
+            padding=0,
         )
         animations = {
             (0, -1, False): [sprites[8]],  # N
@@ -50,4 +57,3 @@ class BodySprite(pygame.sprite.Sprite):
         self.styles.index = index
         self.styles.changeAnim(index)
         # print("Changed bodySprite anim")
-
