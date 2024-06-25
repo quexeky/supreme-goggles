@@ -55,8 +55,8 @@ def run_client(game, recv_data):
 
 
 def manage_output(conn, game):
+    timeSinceLastUpdate = time.time()
     while True:
-        timeSinceLastUpdate = time.time()
         if game.done:
             break
         if (
